@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Profile</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <script src="/lib/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: border-color 0.3s;
+        }
+
+        /* Border color when input is focused */
+        input:focus {
+            border: 2px solid #007BFF;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        /* Style for the button */
+        button {
+            padding: 10px 15px;
+            border: 2px solid #007BFF;
+            background-color: white;
+            color: #007BFF;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        /* When input is not read-only and is focused */
+        input:not([readonly]):focus {
+            border-bottom: 2px solid #007BFF;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Read-only inputs should not have border on focus */
+        input[readonly]:focus {
+            border-bottom: 1px solid #ccc;
+            /* Keeps the default border */
+            box-shadow: none;
+        }
+
+        /* Button hover effect */
+        button:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+
+
+
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(22, 119, 184, 0.05);
+        }
+
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .btn-pagination {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <%- include('nav') %>
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>User Details</h1>
+                            </div>
+
+                            <div class="col-12 mt-3">
+                                <div class="row">
+                                    <div class="col-md-6 px-3">
+                                        <li>User ID : <b id="id_user">0</b></li>
+                                        <li>Referal ID : <b id="user_code"></b></li>
+                                        <li>IP Address : <b id="ip_address"></b></li>
+                                        <li>User Password : </li>
+                                        <div class="d-flex align-items-center pl-4" style="max-width: 330px;">
+                                            <input type="text" class="form-control" placeholder="Enter Password"
+                                                id="new_password">
+                                            <button class="btn btn-primary ml-2" id="update_password">Update</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 px-3">
+                                        <li>Phone No. : <b id="user_phone">0</b></li>
+                                        <li>Created At : <b id="join_date"></b></li>
+                                        <li>Referred By : </li>
+                                        <div class="d-flex align-items-center pl-4" style="max-width: 330px;">
+                                            <input type="text" class="form-control" placeholder="Enter Referred By"
+                                                id="referral_by">
+                                            <button class="btn btn-primary ml-2" id="update_referral_by">Update</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mt-3">
+                                        <div class="row px-3">
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="m-0 text-primary">Total Balance</h6>
+                                                <h2 id="money">0</h2>
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="m-0 text-primary">Total Referral</h6>
+                                                <h2 id="total_referral">0</h2>
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="m-0 text-primary">Total Bet</h6>
+                                                <h2 id="total_bet">0</h2>
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="m-0 text-primary">Total Recharge</h6>
+                                                <h2 id="total_recharge">0</h2>
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="m-0 text-primary">Total Withdraw</h6>
+                                                <h2 id="total_withdraw">0</h2>
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="m-0 text-primary">Total Commission</h6>
+                                                <h2 id="total_gift">0</h2>
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="m-0 text-primary">Total Win</h6>
+                                                <h2 id="total_win">0</h2>
+                                            </div>
+
+                                            <div class="col-6 col-md-3">
+                                                <h6 class="m-0 text-primary">Total Profit</h6>
+                                                <h2 id="total_profit">0</h2>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <!-- <div class="col-md-3"> -->
+
+                            <div class="col-md-12" style="overflow: auto;">
+                                <%- include('table/listDetails.ejs') %>
+                            </div>
+                </section>
+            </div>
+    </div>
+    </div>
+    </section>
+    </div>
+    </div>
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/dist/js/adminlte.min.js"></script>
+    <script src="/js/admin/admin.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".ar-loading-view").fadeIn();
+
+            function formateT(params) {
+                let result = params < 10 ? "0" + params : params;
+                return result;
+            }
+
+            let current = $("#tier_picker_btn").val();
+            let startDate = "";
+            let filterType = "All";
+            let page = 1;
+            let limit = 10;
+            let totalPages = 0;
+            let loading = false;
+
+            let swiper = new Swiper(".van-picker-column", {
+                // on: {
+                //    slideChange: function () {
+                //       level=this.activeIndex.toString()
+                //    },
+                // },
+                slidesPerView: 5,
+                direction: "vertical",
+                centeredSlides: true,
+                clickable: true,
+            });
+
+            $("#tier_picker_btn").change(function () {
+                $("body").addClass("van-overflow-hidden");
+                $("#bottom_slider_tier_picker_overlay").fadeIn();
+                $("#bottom_slider_tier_picker").fadeIn();
+
+                current = $("#tier_picker_btn").val();
+
+                const index = $(
+                    "#bottom_slider_tier_picker .van-picker-column__item .van-ellipsis",
+                )
+                    .toArray()
+                    .findIndex((item) => {
+                        return $(item).text() === current;
+                    });
+                swiper.slideTo(index, 0);
+            });
+
+            $("#bottom_slider_tier_picker .van-picker-column__item").click(
+                function () {
+                    const index = $(
+                        "#bottom_slider_tier_picker .van-picker-column__item",
+                    )
+                        .toArray()
+                        .findIndex((item) => {
+                            return (
+                                $(item).find(".van-ellipsis").text() ===
+                                $(this).find(".van-ellipsis").text()
+                            );
+                        });
+                    swiper.slideTo(index, 500, true);
+                },
+            );
+
+            $(".cancel").click(function () {
+                $("body").removeClass("van-overflow-hidden");
+                $("#bottom_slider_tier_picker_overlay").fadeOut();
+                $("#bottom_slider_tier_picker").fadeOut();
+            });
+
+            $("#filterType").change(function () {
+
+                current = $(this).val();;
+
+                filterType = current;
+                $(".ar-loading-view").fadeIn();
+                loadTransactions(filterType, startDate, 1);
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+                $("body").removeClass("van-overflow-hidden");
+                $("#bottom_slider_tier_picker_overlay").fadeOut();
+                $("#bottom_slider_tier_picker").fadeOut();
+            });
+
+            function timerJoin(params = "", addHours = 0) {
+                let date = "";
+                if (params) {
+                    date = new Date(Number(params));
+                } else {
+                    date = new Date();
+                }
+
+                date.setHours(date.getHours() + addHours);
+
+                let years = formateT(date.getFullYear());
+                let months = formateT(date.getMonth() + 1);
+                let days = formateT(date.getDate());
+
+                let hours = date.getHours() % 12;
+                hours = hours === 0 ? 12 : hours;
+                let ampm = date.getHours() < 12 ? "AM" : "PM";
+
+                let minutes = formateT(date.getMinutes());
+                let seconds = formateT(date.getSeconds());
+
+                return (
+                    years +
+                    "-" +
+                    months +
+                    "-" +
+                    days +
+                    " " +
+                    hours +
+                    ":" +
+                    minutes +
+                    ":" +
+                    seconds +
+                    " " +
+                    ampm
+                );
+            }
+
+            function isFormattedTime(time) {
+                const timeFormat = /^\d{4}-\d{2}-\d{2} \d{1,2}:\d{2}:\d{2} (AM|PM)$/;
+                return timeFormat.test(time);
+            }
+
+            function loadsData(datas, isFirstPage) {
+                let srNo = 1;
+                let html = datas
+                    .map((data) => {
+                        return `
+            <tr class="text-center"  >
+                <td font-weight: 600;>${srNo++}</td>
+                        <td style="color: #e74c3c;font-weight: 600;min-width: 210px">${data.name}</td>
+                        <td style="min-width: 210px;">
+                            <b>
+                                ₹${parseFloat(data.money).toFixed(2)}
+                            </b>
+                        </td>
+                        <td><b style="color:${(data.status === 1) ? "rgb(107, 190, 88)" : "red"}">${(data.status === 1) ? "Success" : "Failed"}</b></td>
+                        <td style="min-width: 210px;">
+                            <b>${(data.name === "P2P Transfer" || data.name === "P2P Received")
+                                ? data.time
+                                : (isFormattedTime(data.time) ? data.time : timerJoin(data.time))
+                            }</b>
+                        </td>
+                    </tr>
+        `;
+                    })
+                    .join("");
+
+                $(".transRecord__container-content__item").html(html);
+            }
+
+            let data = [];
+            function loadTransactions(filterType, startDate, page) {
+                if (loading) return;
+                loading = true;
+
+                $.ajax({
+                    type: "GET",
+                    url: `/api/webapi/withdraw/transactionRecord?startDate=${startDate}&filterType=${filterType}&page=${page}&limit=${limit}&userPhone=<%=phone%>`,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log('response:', response);
+
+                        if (response.data.length > 0) {
+                            totalPages = response.totalPages;
+                            if (page === 1) data = response.data;
+                            else data.push(...response.data);
+                            // updatePaginationUI(response.currentPage, response.totalPages);
+
+                            loadsData(data);
+                            loading = false;
+                        } else {
+                            $(".transRecord__container-content__item").html(
+                                `<tr class="text-center"  >
+                        <td colspan="5">No data available</td>
+                    </tr>`
+                            );
+                            loading = false;
+                            // $("#pagination").hide();
+                        }
+                    },
+                });
+                $(".ar-loading-view").fadeOut();
+            }
+
+            let previousScrollTop = 0;
+            $(window).on("scroll", function () {
+                if (loading)
+                    return
+                const currentScrollTop = $(this).scrollTop();
+
+                if (currentScrollTop >= previousScrollTop) {
+                    if (
+                        $(window).scrollTop() + $(window).height() >=
+                        $(document).height() - 100
+                    ) {
+                        if (!loading && page < totalPages) {
+                            //   console.log("hit)");
+                            page++;
+                            loadTransactions(filterType, startDate, page);
+                        }
+                    }
+                }
+                previousScrollTop = currentScrollTop;
+            });
+
+            loadTransactions(filterType, startDate, page);
+
+            var date = new Date(startDate);
+            var year = date.getFullYear();
+            var month = ("0" + (date.getMonth() + 1)).slice(-2);
+            var day = ("0" + date.getDate()).slice(-2);
+            var formattedDate = year + "-" + month + "-" + day;
+
+            $("#date_picker").val(formattedDate);
+
+            $("#date_picker").on("change", function () {
+                startDate = moment(this.value).valueOf();
+                $(".ar-loading-view").fadeIn();
+                loadTransactions(filterType, startDate, 1);
+                $("html, body").animate({ scrollTop: 0 }, "slow");
+            });
+
+            $("#date_picker_root").click(function () {
+                $("#date_picker").click();
+            });
+            // Other functions like clipboard and alertMess can remain unchanged
+        });
+    </script>
+
+    <!-- Update Password and referral by -->
+    <script>
+        function updatePasswordAndReferralBy() {
+            let password = $("#new_password").val().trim() || "";
+            let referral_by = $("#referral_by").val().trim() || "";
+            $.ajax({
+                type: "POST",
+                url: "/admin/member/userPasswordAndReferral/<%=phone%>",
+                data: {
+                    password: password,
+                    invite: referral_by,
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.status === true) {
+                        alert(response.message);
+                    } else {
+                        alert(response.message);
+                    }
+                },
+            });
+        }
+
+        $('#update_password').click(function () {
+            let password = $("#new_password").val();
+            if (!password) {
+                alert("Password is required!")
+                return;
+            }
+            updatePasswordAndReferralBy();
+        });
+
+        $('#update_referral_by').click(function () {
+            let referral_by = $("#referral_by").val().trim() || "";
+            if (!referral_by) {
+                alert("Referral by is required!")
+                return;
+            }
+            updatePasswordAndReferralBy();
+        });
+    </script>
+    <!-- Update Password and referral by -->
+
+    <script>
+
+        function formateT(params) {
+            let result = (params < 10) ? "0" + params : params;
+            return result;
+        }
+
+        function timerJoin(params = '', addHours = 0) {
+            let date = '';
+            if (params) {
+                date = new Date(Number(params));
+            } else {
+                date = new Date();
+            }
+
+            date.setHours(date.getHours() + addHours);
+
+            let years = formateT(date.getFullYear());
+            let months = formateT(date.getMonth() + 1);
+            let days = formateT(date.getDate());
+
+            let hours = date.getHours() % 12;
+            hours = hours === 0 ? 12 : hours;
+            let ampm = date.getHours() < 12 ? "AM" : "PM";
+
+            let minutes = formateT(date.getMinutes());
+            let seconds = formateT(date.getSeconds());
+
+            return years + '-' + months + '-' + days + ' ' + hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+        }
+
+    </script>
+
+    <script>
+        let url = window.location.pathname;
+        let phones = url.split('/');
+        let phone = phones[phones.length - 1];
+        $.ajax({
+            type: "POST",
+            url: "/api/webapi/admin/member/info",
+            data: {
+                phone: phone,
+            },
+            dataType: "json",
+            success: function (response) {
+                if (response.status === false) return false;
+                let user = response.datas[0];
+                // user
+                console.log('response:', response.total_win);
+
+                $('.profile-username').text(user.name_user);
+                $('#telegram').text(response.telegram);
+                $('#telegram').attr('href', response.telegram);
+                $('#id_user').text(user.id_user);
+                $('#user_phone').text(user.phone);
+                $('#user_code').text(user.code);
+                $('#ip_address').text(user.ip_address);
+                $('#join_date').text(new Date(user.today).toLocaleString());
+                $('#referral_by').val(user.invite);
+                $('#money').text("₹" + user.money);
+                // $('#total_recharge').text("₹" + parseFloat(response.total_r[0]?.total).toFixed(2));
+                $('#total_bet').text("₹" + parseFloat(response.total_bet).toFixed(2));
+                $('#total_referral').text(response.total_referral);
+                // $('#total_gift').text("₹" + parseFloat(response.total_gift).toFixed(2));
+                $('#total_profit').text(parseFloat(response.total_profit).toFixed(2));
+                $('#total_win').text("₹" + parseFloat(response.total_win).toFixed(2));
+                $('#total_gift').text("₹" + parseFloat(response.total_commission).toFixed(2));
+                $('#roses_all').text(user.roses_f + user.roses_f1 + '.0');
+                $('#roses_today').text(user.roses_today + '.0');
+                $('#invite').text(response.phone);
+                $('#daily').text(response.daily);
+
+                $('#f1').text(response.f1 + " member");
+                $('#f2').text(response.f2 + " member");
+                $('#f3').text(response.f3 + " member");
+                $('#f4').text(response.f4 + " member");
+                $('#total_mem').text(response.f1 + response.f2 + response.f3 + response.f4);
+                $('#ip').text(user.ip_address);
+                $('#level').text((user.level == 1) ? 'ADMIN' : (user.level == 2) ? "CTV" : "USER");
+
+                $('#total_recharge').text((response.total_r[0].total) ? "₹" + response.total_r[0].total + '.0' : '₹0.0');
+                $('#total_withdraw').text((response.total_w[0].total) ? "₹" + response.total_w[0].total + '.0' : '₹0.0');
+
+                // bank
+                if (response.bank_user[0]) {
+                    $('#name').val(response.bank_user[0].name_user);
+                    $('#stk').val(response.bank_user[0].stk);
+                    $('#location').val(response.bank_user[0].tinh + " - " + response.bank_user[0].tp);
+                    $('#timeAddBank').val(timerJoin(response.bank_user[0].time));
+                }
+            }
+        });
+    </script>
+
+    <!-- Include SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+</body>
+
+</html>

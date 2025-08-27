@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Game Window</title>
+      <style>
+         body,
+         html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #2b3270;
+         }
+         iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+            display: none;
+         }
+         .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+         }
+         .loader div {
+            width: 50px;
+            height: 50px;
+            border: 5px solid transparent;
+            border-top: 5px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+         }
+
+         @keyframes spin {
+            0% {
+               transform: rotate(0deg);
+            }
+            100% {
+               transform: rotate(360deg);
+            }
+         }
+
+        p {
+         cursor: pointer;
+  position: absolute;
+  background-color: transparent;
+  /* background-color: #2b3270;  */
+  color: #FFF;
+  font-weight: 800;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 8px 10px;
+  border-radius: 4px;
+  outline: none;
+  margin-left: 2px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  letter-spacing: 1px;
+  margin-top: 0px;
+  top: 20px; 
+  left: 6px;
+  border-radius: 50%; 
+  background: linear-gradient(to right, #f97316, #ea580c); 
+  cursor: pointer;
+  transition: background 0.3s ease;
+  z-index: 1000;
+}
+
+      </style>
+      <link rel="icon" type="image/svg+xml+ico"
+      href="/images/sp-logo.png">
+   </head>
+   <body>
+      <div class="loader" id="loader">
+         <div></div>
+      </div>
+      <div style="display: flex; justify-content: flex-start; width: 100%; align-items: center; height: 0px: cursor: pointer;">
+         <p onclick="location.href='/home'">&#11164</p>
+         
+      </div>
+     <div style="width: 100%; height: calc(100vh - 20px); overflow: hidden;">
+    <iframe id="gameFrame" src="<%= decodeURIComponent(gameUrl) %>" style="width: 100%; height: 100%; border: none;"></iframe>
+</div>
+
+
+      <script>
+         const iframe = document.getElementById("gameFrame");
+         const loader = document.getElementById("loader");
+
+         iframe.onload = () => {
+            loader.style.display = "none";
+            iframe.style.display = "block";
+         };
+      </script>
+   </body>
+</html>

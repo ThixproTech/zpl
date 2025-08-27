@@ -1,0 +1,57 @@
+<section class="content">
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <h3 class="card-title">All Record</h3>
+                <!-- <input type="date" id="dateFilter" name="dateFilter" style="width: 10rem; height: 2rem;"> -->
+            </div>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <select id="filterType" class="form-control">
+                        <option value="All" selected>All</option>
+                        <option value="Bonus">Bonus</option>
+                        <option value="Recharge">Recharge</option>
+                        <option value="Withdraw">Withdraw</option>
+                        <option value="Commissions">Commissions</option>
+                        <option value="Salary">Salary</option>
+                        <option value="Wingo">Wingo</option>
+                        <option value="K3">K3</option>
+                        <option value="5D">5D</option>
+                        <option value="API">API Game</option>
+                    </select>
+
+                </div>
+                <div class="col-md-3 ml-auto">
+                    <input type="date" class="form-control" id="date_picker">
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-0" style="display: block; overflow-y: hidden;">
+            <table class="table table-striped projects">
+                <thead>
+                    <tr>
+                        <th class="text-center">Sr No.</th>
+                        <th class="text-center">Type</th>
+                        <th class="text-center">Amount</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Time</th>
+                    </tr>
+                </thead>
+                <tbody class="transRecord__container-content__item">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

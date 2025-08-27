@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>Game History</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+      <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+      <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet" />
+      <link rel="stylesheet" href="/dist/css/adminlte.min.css" />
+      <link rel="stylesheet" href="/css/admin.css" />
+   </head>
+
+   <body class="hold-transition sidebar-mini">
+      <div class="wrapper">
+         <%- include('nav') %>
+         <div class="content-wrapper">
+            <section class="content-header">
+               <div class="container-fluid">
+                  <div class="row mb-2">
+                     <div class="col-sm-6">
+                        <h1>Game History</h1>
+                     </div>
+                  </div>
+               </div>
+               <!-- /.container-fluid -->
+            </section>
+
+            <div class="form-group" style="text-align: center; gap: 10px;display: flex;flex-wrap: wrap;align-items: center;justify-content: center;">
+               <input type="text" id="phone" placeholder="Enter The Phone You Want To Search">
+               <input type="date" id="start_date">
+               <input type="date" id="end_date">
+               <button type="button" class="btn btn-primary" id="search_btn">Search</button>
+            </div>
+
+            <!-- Main content -->
+            <section class="content">
+               <!-- Default box -->
+               <div class="card">
+
+                  <div class="card-header">
+                     <div class="d-flex" style="flex-wrap: wrap;">
+                         <div class="col-md-6 col-12 px-0">
+                             <div class="d-flex" id="deposite_main" style="gap: 20px;">
+                                 <h5 class="m-0 text-danger">Total Loss :</h5>
+                                 <h5 class="m-0 text-danger" id="totalLoss">0</h5>
+                             </div>
+                         </div>
+                         <div class="col-md-6 col-12 px-0">
+                             <div class="d-flex" id="withdraw_main" style="gap: 20px;">
+                                 <h5 class="m-0 text-success">Total Profit: </h5>
+                                 <h5 class="m-0 text-success" id="totalWin">0</h5>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+                  <div class="card-header">
+                     <h3 class="card-title">Game History</h3>
+                     <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                           <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                           <i class="fas fa-times"></i>
+                        </button>
+                     </div>
+                  </div>
+                  <div class="card-body p-0" style="overflow-y: hidden">
+                     <table class="table table-striped projects">
+                        <thead>
+                           <tr>
+                              <th class="text-center">#</th>
+                              <th class="text-center">Game UID</th>
+                              <th class="text-center">Game Name</th>
+                              <th class="text-center">Game Round</th>
+                              <th class="text-center">Phone</th>
+                              <th class="text-center">Bet Amount</th>
+                              <th class="text-center">Win Amount</th>
+                              <th class="text-center">Currency Code</th>
+                              <th class="text-center">Provider Name</th>
+                              <th class="text-center">Date</th>
+                           </tr>
+                        </thead>
+                        <tbody id="game-history-body">
+                           <!-- Game history data will be populated here -->
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="pagination" id="pagination" style="display: flex; justify-content: center; margin-top: 10px"></div>
+               </div>
+            </section>
+         </div>
+      </div>
+
+      <script src="/plugins/jquery/jquery.min.js"></script>
+      <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="/dist/js/adminlte.min.js"></script>
+      <script src="/js/admin/admin.js"></script>
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+      <script>
+         let currentPage = 1;
+         let totalPages = 1;
+
+         function formatT(params) {
+            return params < 10 ? "0" + params : params;
+         }
+
+         function formatISTDate(dateString) {
+            return new Date(dateString).toLocaleString("en-IN", {
+               timeZone: "Asia/Kolkata",
+               year: "numeric",
+               month: "2-digit",
+               day: "2-digit",
+               hour: "2-digit",
+               minute: "2-digit",
+               second: "2-digit",
+               hour12: true,
+            });
+         }
+
+         function showGameHistory(data) {
+            if (data.length == 0) {
+               $("#totalLoss").html(0);
+               $("#totalWin").html(0);
+               $("#game-history-body").html(`
+                  <tr class="text-center">
+                     <td colspan="10">No game history found.</td>
+                  </tr>
+               `);
+               return;
+            }
+
+            let getSrNo = currentPage === 1 ? 0 : currentPage * 10;
+            let srNo = getSrNo + 1;
+            let totalWin = 0;
+            let totalLoss = 0;
+            let html = data
+               .map(game => {
+                  totalLoss += parseFloat(game.betAmount);
+                  totalWin += parseFloat(game.winAmount);
+                  return `<tr class="text-center">
+                           <td>${srNo++ ?? ''}</td>
+                           <td><b>${game.game_uid ?? ''}</b></td>
+                           <td><b>${game.game_name ?? ''}</b></td>
+                           <td><b>${game.game_round ?? ''}</b></td>
+                           <td><b>${game.phone ?? ''}</b></td> 
+                           <td><b class="text-danger">${game.betAmount ?? ''}</b></td>
+                           <td><b class="text-success">${game.winAmount ?? ''}</b></td>
+                           <td><b>${game.currency_code ?? ''}</b></td>
+                           <td><b>${game.provider ?? ''}</b></td>
+                           <td><b>${formatISTDate(game.created_at) ?? ''}</b></td>
+                        </tr>`;
+               })
+               .join("");
+            $("#game-history-body").html(html);
+            $("#game-history-body").append(`
+                  <tr class="text-center">
+                     <td colspan="5"><b class="text-primary">Total</b></td>
+                     <td><b class="text-danger">${totalLoss.toFixed(2)}</b></td>
+                     <td><b class="text-success">${totalWin.toFixed(2)}</b></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                  </tr>
+               `);
+         }
+
+         function renderPagination() {
+            let paginationHTML = `
+               <nav aria-label="Page navigation justify-content-center">
+                  <ul class="pagination justify-content-center">
+                     <li class="page-item ${currentPage === 1 ? "disabled" : ""}">
+                        <a class="page-link" href="#" onclick="fetchGameHistory(${currentPage - 1})">Previous</a>
+                     </li>`;
+
+            for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+               paginationHTML += `
+            <li class="page-item ${currentPage === i ? "active" : ""}">
+               <a class="page-link" href="#" onclick="fetchGameHistory(${i})">${i}</a>
+            </li>`;
+            }
+
+            paginationHTML += `
+               <li class="page-item ${currentPage === totalPages ? "disabled" : ""}">
+                  <a class="page-link" href="#" onclick="fetchGameHistory(${currentPage + 1})">Next</a>
+               </li>
+            </ul>
+         </nav>`;
+
+            $("#pagination").html(paginationHTML);
+         }
+
+         function fetchGameHistory(page = 1, type = "adminhistory") {
+            let startDate = $("#start_date").val() || "";
+            let endDate = $("#end_date").val() || "";
+            let search = $("#phone").val() || "";
+            $.ajax({
+               type: "GET",
+               url: `/api/webapi/igtechgamehistory?page=${page}&type=adminhistory`,
+               dataType: "json",
+               data:{
+                  startDate,
+                  endDate,
+                  search
+               },
+               success: function (response) {
+                  if (response.success) {
+                     currentPage = response.currentPage;
+                     totalPages = response.totalPages;
+                     showGameHistory(response.data);
+                     renderPagination();
+
+                     const net = response.totalWin - response.totalLoss;
+                     console.log(response.totalWin)
+                     console.log(response.totalLoss)
+                     console.log(net)
+
+                     $("#totalLoss").html(net < 0 ? -net.toFixed(2) : 0);
+                     $("#totalWin").html(net > 0 ? net.toFixed(2) : 0);
+
+                  } else {
+                     $("#totalLoss").html(0);
+                     $("#totalWin").html(0);
+
+                     $("#game-history-body").html(`
+                        <tr class="text-center">
+                           <td colspan="10">No game history found.</td>
+                        </tr>
+                     `);
+                  }
+               },
+               error: function () {
+                  $("#game-history-body").html(`
+               <tr class="text-center">
+                  <td colspan="10">Error fetching data.</td>
+               </tr>
+            `);
+               },
+            });
+         }
+
+         $(document).on('click', "#search_btn", function(){
+            fetchGameHistory();
+         })
+
+         $(document).ready(function () {
+            fetchGameHistory();
+         });
+      </script>
+   </body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bonus Records</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<style>
+    .btn-primary {
+        height: 30px !important;
+    }
+
+    /* @media(max-width: 768px) {
+        .btn-primary {
+            margin-top: 15px;
+        }
+    } */
+
+    .pagination {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    #numbers {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .page-item {
+        list-style: none;
+    }
+
+    .page-item a {
+        padding: 8px 12px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        text-decoration: none;
+        color: #007bff;
+        transition: all 0.3s;
+    }
+
+    .page-item a:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .pagination {
+            flex-wrap: wrap;
+        }
+
+        #numbers {
+            overflow-x: auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+    }
+</style>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <%- include('nav') %>
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Bonus List</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+
+                <div class="form-group">
+                    <div class="row px-3 align-items-center">
+                        <div class="col-md-6 mt-2 mt-md-0">
+                            <div class="d-flex" style="gap: 10px;">
+                                <input type="number" id="phone" placeholder="Enter Phone you want to search">
+                                <input type="date" id="start_date">
+                                <input type="date" id="end_date">
+                                <button class="btn btn-primary btn-sm confirm-btn recordFilter" data="Date"><i
+                                        class="nav-icon fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- Default box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Bonus List</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-0" style="overflow-y: hidden;">
+                            <table class="table table-striped projects" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Phone</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Type</th>
+                                        <th class="text-center">Time</th>
+                                        <th class="text-center">Status</th>
+                                        <!-- <th class="text-center"></th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav aria-label="Page navigation example"
+                            style="margin-top: 20px; display: flex; justify-content: center;">
+                            <ul class="pagination table1">
+                                <li class="page-item previous">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item next">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+
+
+                    </div>
+
+                </section>
+            </div>
+            <script src="/plugins/jquery/jquery.min.js"></script>
+            <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="/dist/js/adminlte.min.js"></script>
+            <script src="/js/admin/admin.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+            <script src="/js/admin/tables.js"></script>
+            <script>
+                function formateT(params) {
+                    return params < 10 ? "0" + params : params;
+                }
+
+                function timerJoin(params = '', addHours = 0) {
+                    let date = params ? new Date(Number(params)) : new Date();
+                    date.setHours(date.getHours() + addHours);
+
+                    let years = formateT(date.getFullYear());
+                    let months = formateT(date.getMonth() + 1);
+                    let days = formateT(date.getDate());
+                    let hours = date.getHours() % 12 || 12;
+                    let ampm = date.getHours() < 12 ? "AM" : "PM";
+                    let minutes = formateT(date.getMinutes());
+                    let seconds = formateT(date.getSeconds());
+
+                    return `${years}-${months}-${days} ${hours}:${minutes}:${seconds} ${ampm}`;
+                }
+
+                function show(params) {
+                    let html = params.length === 0
+                        ? `<tr class="text-center"><td colspan="8">No data available...</td></tr>`
+                        : '';
+
+                    params.forEach((data) => {
+                        html += `<tr class="text-center">
+                    <td id="${data.id}">${data.id}</td>
+                    <td><b>${data.phone}</b></td>
+                    <td><b>${data.amount}</b></td>
+                    <td style="min-width: 190px;"><b>${data.type}</b></td>
+                    <td style="min-width: 190px;"><b>${timerJoin(data.time)}</b></td>
+                    <td class="project-state">
+                        <span class="badge badge-${data.status == 1 ? 'success' : 'danger'}">
+                            ${data.status == 1 ? 'Success' : 'Closed'}
+                        </span>
+                    </td>
+                </tr>`;
+                    });
+
+                    $('tbody').html(html);
+                }
+
+                // Global Variables for Pagination & Filters
+                let currentPage = 1;
+                let totalPages = 1;
+                let limit = 10;
+                let start_date = "";
+                let end_date = "";
+
+                // Function to Fetch Data with Pagination
+                function fetchBonusHistory(page = 1) {
+                    let phone = $('#phone').val();
+                    let sDate = $('#start_date').val().trim();
+                    let eDate = $('#end_date').val().trim();
+
+                    start_date = sDate ? new Date(sDate + "T00:00:00Z").getTime() : "";
+                    end_date = eDate ? new Date(eDate + "T00:00:00Z").getTime() : "";
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/webapi/admin/adminBonusHistoryFilter",
+                        data: { start_date, phone, end_date, page, limit },
+                        dataType: "json",
+                        success: function (response) {
+                            if (!response.bonusHistory || response.bonusHistory.length === 0) {
+                                $('tbody').html(`<tr class="text-center"><td colspan="8">No data available...</td></tr>`);
+                            } else {
+                                show(response.bonusHistory);
+                            }
+
+                            currentPage = response.currentPage;
+                            totalPages = response.totalPages;
+                            updatePagination();
+                        },
+                        error: function (xhr) {
+                            console.error("AJAX error:", xhr.responseText);
+                        }
+                    });
+                }
+
+                // Function to Update Pagination UI
+                function updatePagination() {
+                    let paginationHtml = "";
+
+                    for (let i = 1; i <= totalPages; i++) {
+                        paginationHtml += `<li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <a class="page-link" href="#" data-page="${i}">${i}</a>
+                          </li>`;
+                    }
+
+                    $("#numbers").html(paginationHtml);
+
+                    // Enable/Disable Previous and Next buttons
+                    $(".previous").toggleClass("disabled", currentPage === 1);
+                    $(".next").toggleClass("disabled", currentPage === totalPages);
+                }
+
+                // Handle Page Number Clicks
+                $(document).on("click", "#numbers .page-link", function (e) {
+                    e.preventDefault();
+                    let page = $(this).data("page");
+
+                    if (page >= 1 && page <= totalPages && page !== currentPage) {
+                        fetchBonusHistory(page);
+                    }
+                });
+
+                // Handle Previous Button Click
+                $(".previous a").click(function (e) {
+                    e.preventDefault();
+                    if (currentPage > 1) {
+                        fetchBonusHistory(currentPage - 1);
+                    }
+                });
+
+                // Handle Next Button Click
+                $(".next a").click(function (e) {
+                    e.preventDefault();
+                    if (currentPage < totalPages) {
+                        fetchBonusHistory(currentPage + 1);
+                    }
+                });
+
+                // Handle Filter Button Click
+                $('.recordFilter').click(function (e) {
+                    e.preventDefault();
+                    currentPage = 1; // Reset to first page when filtering
+                    fetchBonusHistory(currentPage);
+                });
+
+                // Fetch Initial Data
+                fetchBonusHistory();
+
+            </script>
+</body>
+
+</html>

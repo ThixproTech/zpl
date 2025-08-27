@@ -1,0 +1,132 @@
+<html lang="en" translate="no" data-dpr="1" dir="ltr" style="font-size: 37px;">
+
+<head>
+    <script src="/app.config.js?v=1718968461132"></script>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml+ico" href="/images/sp-logo.png">
+    <meta name="google" content="notranslate">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="manifest">
+    <title>SPIDER GAMEING</title>
+    <link rel="modulepreload" crossorigin="" href="/assets/js/page-activity-d3ba61d1.js">
+    <link rel="stylesheet" href="/assets/css/modules-b642e9bc.css">
+    <link rel="stylesheet" href="/assets/css/page-activity-4fe5c6bf.css">
+    <link rel="stylesheet" href="/assets/css/index-2c2fee84.css">
+    <link rel="modulepreload" as="script" crossorigin="" href="/assets/js/page-vip-cf1db7c1.js">
+    <link rel="stylesheet" href="/assets/css/page-vip-896cf332.css">
+    <link rel="stylesheet" href="/assets/css/page-test-24de9c20.css">
+    <link rel="stylesheet" href="/assets/css/page-promotion-14ce89d7.css">
+    <link rel="stylesheet" href="/assets/css/page-wallet-b9af2085.css">
+</head>
+
+<body style="font-size: 12px;" class="">
+    <div id="app" data-v-app="">
+        <div data-v-f851bd18="" class="rechargeh__container"
+            style="--f13b4d11-currentFontFamily: 'Roboto', 'Inter', sans-serif">
+            <div data-v-12a80a3e="" data-v-f851bd18="" class="navbar white">
+                <div data-v-12a80a3e="" class="navbar-fixed">
+                    <div data-v-12a80a3e="" class="navbar__content">
+                        <div data-v-12a80a3e="" class="navbar__content-left" onclick="history.back()">
+                            <i data-v-12a80a3e="" class="van-badge__wrapper van-icon van-icon-arrow-left"></i>
+                        </div>
+                        <div data-v-12a80a3e="" class="navbar__content-center">
+                            <div data-v-12a80a3e="" class="navbar__content-title">My Downline</div>
+                        </div>
+                        <div data-v-12a80a3e="" class="navbar__content-right"></div>
+                    </div>
+                </div>
+            </div>
+            <div data-v-61888f52="" data-v-f851bd18="" class="infiniteScroll"
+                id="refresh955a217bd5f14b5a8105a9084ecc8e23">
+                <div data-v-f851bd18="" class="rechargeh__container-content" id="deposit_history_list"
+                    style="margin-top: 0.1rem;"></div>
+                <div data-v-61888f52="" class="infiniteScroll__loading">
+                    <div data-v-61888f52="">No more</div>
+                </div>
+            </div>
+        </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/js/client.js"></script>
+<script>
+    function formateT(params) {
+        let result = params < 10 ? "0" + params : params
+        return result
+    }
+
+    function timerJoin(params = "", addHours = 0) {
+        let date = ""
+        if (params) {
+            date = new Date(Number(params))
+        } else {
+            date = new Date()
+        }
+
+        date.setHours(date.getHours() + addHours)
+
+        let years = formateT(date.getFullYear())
+        let months = formateT(date.getMonth() + 1)
+        let days = formateT(date.getDate())
+
+        let hours = date.getHours() % 12
+        hours = hours === 0 ? 12 : hours
+        let ampm = date.getHours() < 12 ? "AM" : "PM"
+
+        let minutes = formateT(date.getMinutes())
+        let seconds = formateT(date.getSeconds())
+
+        return years + "-" + months + "-" + days + " " + hours + ":" + minutes + ":" + seconds + " " + ampm
+    }
+
+    function loads(datas) {
+        if (datas.length) {
+            $(".no_data_image").addClass("hide")
+        } else {
+            $(".no_data_image").removeClass("hide")
+        }
+
+        // Filter out entries with type "daily"
+        let filteredData = datas.filter(data => data.type !== "daily");
+
+        let html = filteredData.map(data => {
+            return `
+                <div data-v-f851bd18="" class="rechargeh__container-content__item">
+                    <div data-v-f851bd18="" class="rechargeh__container-content__item-header">
+                        <span data-v-f851bd18="" class="recharge_tit" style="background:#2B3270;">UID:${data.id_user}</span>
+                    </div>
+                    <div data-v-f851bd18="" role="separator" class="van-divider van-divider--hairline divier"></div>
+                    <div data-v-f851bd18="" class="rechargeh__container-content__item-body">
+                        <div data-v-f851bd18=""><span data-v-f851bd18="">Name</span><span data-v-f851bd18="" class="price">${data.name_user}</span></div>
+                        <div data-v-f851bd18=""><span data-v-f851bd18="">Total Bet Amount</span><span data-v-f851bd18="">${data.total_bet_amount}</span></div>
+                        <div data-v-f851bd18=""><span data-v-f851bd18="">Total Deposit Amount</span><span data-v-f851bd18="">${data.total_deposit_amount}</span></div>
+                        <div data-v-f851bd18=""><span data-v-f851bd18="">Deposit Date</span><span data-v-f851bd18=""></span></div>
+                        <div data-v-f851bd18=""><span data-v-f851bd18="">Date</span><span data-v-f851bd18="">${timerJoin(data.time)}</span></div>
+                    </div>
+                </div>
+            `;
+        }).join(''); // Join the array into a string
+
+        $("#deposit_history_list").html(html);
+        $(".number").click(function (e) {
+            e.preventDefault();
+            let text = $(this).text().trim();
+            navigator.clipboard.writeText(text);
+            $(this).addClass("block-click");
+        });
+    }
+
+    $.ajax({
+        type: "GET",
+        url: "/api/webapi/my/referral?startDate=1728259200000&id=&level=All&page=1&limit=5000",
+        dataType: "json",
+        success: function (response) {
+            if (response.data.length == 0) return;
+            loads(response.data);
+        },
+    });
+</script>
+
+</html>

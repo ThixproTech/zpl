@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bonus Records</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<style>
+    .btn-primary {
+        height: 30px !important;
+    }
+
+    /* @media(max-width: 768px) {
+        .btn-primary {
+            margin-top: 15px;
+        }
+    } */
+    
+    #numbers{
+        display: none !important;
+    }
+</style>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <%- include('nav') %>
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>P2P List</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+
+                <div class="form-group">
+                    <div class="row px-3 align-items-center">
+                        <div class="col-md-6 mt-2 mt-md-0">
+                            <div class="d-flex" style="gap: 10px;">
+                                <input type="date" id="start_date">
+                                <input type="date" id="end_date">
+                                <button class="btn btn-primary btn-sm confirm-btn recordFilter" data="Date"><i
+                                        class="nav-icon fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- Default box -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">P2P List</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-0" style="overflow-y: hidden;">
+                            <table class="table table-striped projects" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Sender Phone</th>
+                                        <th class="text-center">Receiver Phone</th>
+                                        <th class="text-center">Amount</th>
+                                        <th class="text-center">Sender Bonus</th>
+                                        <th class="text-center">Receiver Bonus</th>
+                                        <th class="text-center">Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav aria-label="Page navigation example"
+                            style="margin-top: 20px;display: flex;justify-content: center;">
+                            <ul class="pagination table1">
+                                <li class="page-item previous">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <div id="numbers" style="display: flex;"></div>
+                                <li class="page-item next">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </section>
+            </div>
+            <script src="/plugins/jquery/jquery.min.js"></script>
+            <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="/dist/js/adminlte.min.js"></script>
+            <script src="/js/admin/admin.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+            <script src="/js/admin/tables.js"></script>
+            <script>
+                let currentPage = 1;
+                const limit = 10; // Records per page
+
+                function show(params) {
+                    if (!params || params.length === 0) {
+                        $("tbody").html(`
+            <tr class="text-center">
+                <td colspan="8">No data available...</td>
+            </tr>
+        `);
+                        return;
+                    }
+                    let html = "";
+                    params.forEach((data) => {
+                        html += `<tr class="text-center">
+                    <td id="${data.id}">${data.id}</td>
+                    <td><b>${data.sender_phone}</b></td>
+                    <td><b>${data.receiver_phone}</b></td>
+                    <td><b>${data.amount}</b></td>
+                    <td style="min-width: 190px;"><b>${data.sender_bonus}</b></td>
+                    <td style="min-width: 190px;"><b>${data.receiver_bonus}</b></td>
+                    <td style="min-width: 190px;"><b>${new Date(data.datetime).toLocaleString()}</b></td>
+                </tr>`;
+                    });
+                    $("tbody").html(html);
+                }
+
+                // Fetch data with pagination
+                function fetchData(page = 1) {
+                    let start_date = $("#start_date").val();
+                    let end_date = $("#end_date").val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/webapi/admin/p2pRecordfilter",
+                        data: { start_date, end_date, page, limit },
+                        dataType: "json",
+                        success: function (response) {
+                            show(response.bonusHistory);
+                            updatePagination(response.totalPages, page);
+                        },
+                    });
+                }
+
+                // Update pagination controls
+                function updatePagination(totalPages, page) {
+                    let numbersHtml = "";
+
+                    for (let i = 1; i <= totalPages; i++) {
+                        numbersHtml += `
+            <li class="page-item ${i === page ? "active" : ""}">
+                <a class="page-link page-number" href="#" data-page="${i}">${i}</a>
+            </li>`;
+                    }
+
+                    $("#numbers").html(numbersHtml);
+                    $(".previous").toggleClass("disabled", page === 1);
+                    $(".next").toggleClass("disabled", page === totalPages);
+                }
+
+                // Initial Data Load
+                fetchData(currentPage);
+
+                // Handle Date Filter Click
+                $(".recordFilter").click(function (e) {
+                    e.preventDefault();
+                    currentPage = 1;
+                    fetchData(currentPage);
+                });
+
+                // Handle Page Number Click
+                $(document).on("click", ".page-number", function (e) {
+                    e.preventDefault();
+                    let selectedPage = parseInt($(this).data("page"));
+                    if (selectedPage !== currentPage) {
+                        currentPage = selectedPage;
+                        fetchData(currentPage);
+                    }
+                });
+
+                // Handle Previous & Next Button Clicks
+                $(".previous").click(function (e) {
+                    e.preventDefault();
+                    if (currentPage > 1) {
+                        currentPage--;
+                        fetchData(currentPage);
+                    }
+                });
+
+                $(".next").click(function (e) {
+                    e.preventDefault();
+                    currentPage++;
+                    fetchData(currentPage);
+                });
+
+            </script>
+</body>
+
+</html>

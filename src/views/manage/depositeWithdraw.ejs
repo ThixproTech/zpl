@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deposite Withdraw Records</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<style>
+    .btn-primary {
+        height: 30px !important;
+    }
+
+    /* @media(max-width: 768px) {
+        .btn-primary {
+            margin-top: 15px;
+        }
+    } */
+    .d-none {
+        display: none !important;
+    }
+</style>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <%- include('nav') %>
+            <div class="content-wrapper">
+                <section class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>Deposite Withdraw List</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+                </section>
+
+                <div class="form-group">
+                    <div class="row px-3 align-items-center">
+                        <div class="col-md-12">
+                            <div class="d-flex" style="gap: 10px; flex-wrap: wrap;">
+                                <input type="text" id="phone" name="phone"
+                                    placeholder="Enter The Phone You Want To Search">
+
+                                <select name="type" id="type">
+                                    <option value="All">Both</option>
+                                    <option value="Deposite">Deposite</option>
+                                    <option value="Withdraw">Withdraw</option>
+                                </select>
+                                <input type="date" id="start_date">
+                                <input type="date" id="end_date">
+                                <button class="btn btn-primary btn-sm confirm-btn recordFilter" data="Date"><i
+                                        class="nav-icon fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main content -->
+                <section class="content">
+                    <!-- Default box -->
+                    <div class="card">
+
+                        <div class="card-header">
+                            <div class="d-flex" style="flex-wrap: wrap;">
+                                <div class="col-md-6 col-12">
+                                    <div class="d-flex" id="deposite_main" style="gap: 20px;">
+                                        <h5 class="m-0 text-primary">Deposite :</h5>
+                                        <h5 class="m-0 text-primary" id="deposite">0</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="d-flex" id="withdraw_main" style="gap: 20px;">
+                                        <h5 class="m-0 text-primary">Withdraw: </h5>
+                                        <h5 class="m-0 text-primary" id="withdraw">0</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-header">
+                            <h3 class="card-title">Deposite Withdraw List</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card-body p-0" style="overflow-y: hidden;">
+                            <table class="table table-striped projects" id="table1">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Phone</th>
+                                        <th class="text-center">D/W</th>
+                                        <th class="text-center">Amount</th>
+                                        <!-- <th class="text-center">Code</th> -->
+                                        <th class="text-center">UTR/STK</th>
+                                        <th class="text-center">Method</th>
+                                        <th class="text-center">Time</th>
+                                        <th class="text-center">Status</th>
+                                        <!-- <th class="text-center"></th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <nav aria-label="Page navigation example"
+                            style="margin-top: 20px;display: flex;justify-content: center;">
+                            <ul class="pagination table1">
+                                <li class="page-item previous">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <div id="numbers" style="display: flex;"></div>
+                                <li class="page-item next">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </section>
+            </div>
+            <script src="/plugins/jquery/jquery.min.js"></script>
+            <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="/dist/js/adminlte.min.js"></script>
+            <script src="/js/admin/admin.js"></script>
+            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+            <script src="/js/admin/tables.js"></script>
+            <script>
+                function formatTime(value) {
+                    return value < 10 ? "0" + value : value;
+                }
+
+                const PaymentMethodsMap = {
+                    upi_gateway: "UPI GATEWAY",
+                    upi_gatewa: "UPI GATEWAY",
+                    upi_manual: "UPI Manual",
+                    usdt_manual: "USDT Manual",
+                    usdt_manua: "USDT Manual",
+                    wow_pay: "WOW Pay",
+                    usdt: "USDT",
+                };
+
+                function formatDateTime(timestamp = '', addHours = 0) {
+                    let date = timestamp ? new Date(Number(timestamp)) : new Date();
+                    date.setHours(date.getHours() + addHours);
+
+                    let year = formatTime(date.getFullYear());
+                    let month = formatTime(date.getMonth() + 1);
+                    let day = formatTime(date.getDate());
+                    let hours = date.getHours() % 12 || 12;
+                    let ampm = date.getHours() < 12 ? "AM" : "PM";
+                    let minutes = formatTime(date.getMinutes());
+                    let seconds = formatTime(date.getSeconds());
+
+                    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} ${ampm}`;
+                }
+
+                let currentPage = 1;
+                let totalPages = 1;
+                const rowsPerPage = 10;
+
+                function fetchRecords(page = 1) {
+                    let phone = $('#phone').val();
+                    let start_date = $('#start_date').val();
+                    let end_date = $('#end_date').val();
+                    let type = $('#type').val();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/webapi/admin/recordFilter",
+                        data: { phone, start_date, end_date, type, page, limit: rowsPerPage },
+                        dataType: "json",
+                        success: function (response) {
+                            let records = response.datas || [];
+                            currentPage = response.pagination.currentPage;
+                            totalPages = response.pagination.totalPages;
+                            let totalDeposit = response.pagination.totalDeposit;
+                            let totalWithdraw = response.pagination.totalWithdraw;
+
+                            $('#deposite').text(totalDeposit);
+                            $('#withdraw').text(totalWithdraw);
+
+                            renderTable(records);
+                        },
+                        error: function () {
+                            console.error("Error fetching records.");
+                        }
+                    });
+                }
+
+                function renderTable(data) {
+                    if (!data.length) {
+                        $('tbody').html(`
+                            <tr class="text-center">
+                                <td colspan="8">No data available...</td>
+                            </tr>
+                        `);
+                        return;
+                    }
+
+                    let html = '';
+
+                    data.forEach(entry => {
+                        let amount = Number(entry.money) || 0;
+                        let type = entry.table_name === "recharge" ? "D" : "W";
+
+                        html += `
+                            <tr class="text-center">
+                                <td id="${entry.id}">${entry.id}</td>
+                                <td><b>${entry.phone}</b></td>
+                                <td><b>${type}</b></td>
+                                <td><b>${amount}</b></td>
+                                <td style="min-width: 190px;"><b>${entry.utr_type} - ${entry.utr}</b></td>
+                                <td style="min-width: 190px;"><b>${PaymentMethodsMap[entry.method] || entry.method}</b></td>
+                                <td style="min-width: 190px;"><b>${formatDateTime(entry.time)}</b></td>
+                                <td class="project-state">
+                                    <span class="badge badge-${entry.status == 1 ? 'success' : 'danger'}">
+                                        ${entry.status == 1 ? 'Success' : 'Closed'}
+                                    </span>
+                                </td>
+                            </tr>`;
+                    });
+
+                    $('tbody').html(html);
+
+                    updatePagination();
+                }
+
+                function updatePagination() {
+                    let paginationHtml = '';
+
+                    // Previous button
+                    if (currentPage > 1) {
+                        paginationHtml += `
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">Previous</a>
+            </li>
+        `;
+                    }
+
+                    // Left page number (if not first page)
+                    if (currentPage > 1) {
+                        paginationHtml += `
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="changePage(${currentPage - 1})">${currentPage - 1}</a>
+            </li>
+        `;
+                    }
+
+                    // Current page number
+                    paginationHtml += `
+        <li class="page-item active">
+            <a class="page-link" href="#">${currentPage}</a>
+        </li>
+    `;
+
+                    // Right page number (if not last page)
+                    if (currentPage < totalPages) {
+                        paginationHtml += `
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">${currentPage + 1}</a>
+            </li>
+        `;
+                    }
+
+                    // Next button
+                    if (currentPage < totalPages) {
+                        paginationHtml += `
+            <li class="page-item">
+                <a class="page-link" href="#" onclick="changePage(${currentPage + 1})">Next</a>
+            </li>
+        `;
+                    }
+
+                    $('.pagination').html(paginationHtml);
+                }
+
+                function changePage(page) {
+                    if (page >= 1 && page <= totalPages) {
+                        fetchRecords(page);
+                    }
+                }
+
+                $('.recordFilter').click(function (e) {
+                    e.preventDefault();
+                    currentPage = 1;
+                    fetchRecords(currentPage);
+                });
+
+                $(document).ready(function () {
+                    fetchRecords(currentPage);
+                });
+            </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Members list</title>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet" />
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+  <style>
+    .block-click {
+      pointer-events: none;
+    }
+
+    #swal2-html-container {
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body class="hold-transition sidebar-mini">
+  <div class="wrapper">
+    <%- include('nav') %>
+      <div class="content-wrapper">
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>Members list</h1>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+
+        <div class="form-group" style="
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 0.5rem;
+          ">
+          <!-- Client Balance -->
+          <h6 style="
+              font-weight: 600;
+              font-size: 16px;
+              margin: 0;
+              flex: 1 1 200px;
+            ">
+            <i class="fas fa-wallet" style="margin-right: 5px;"></i>
+            Users Balance:
+            <span id="users-balance" style="color: #28a745; font-weight: bold; margin-left: 6px;">
+            </span>
+          </h6>
+
+          <!-- Search Bar with Icon -->
+          <div style="
+              position: relative;
+              flex: 1 1 300px;
+              max-width: 100%;
+            ">
+            <input type="text" id="search" placeholder="Enter the member you are looking for" style="
+                padding-left: 30px;
+                height: 32px;
+                font-size: 14px;
+                width: 100%;
+                box-sizing: border-box;
+              " />
+            <i class="fas fa-search" style="
+                position: absolute;
+                top: 50%;
+                left: 8px;
+                transform: translateY(-50%);
+                color: gray;
+                pointer-events: none;
+              "></i>
+          </div>
+          <button id="allUsersBtn" style="
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap;">
+            <i class="fas fa-users" style="margin-right: 5px;"></i>
+            All Users
+          </button>
+          <button id="deadUserBtn" style="
+                    background-color: #dc3545;
+                    color: white;
+                    border: none;
+                    padding: 6px 12px;
+                    font-size: 14px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    white-space: nowrap;
+                  ">
+            <i class="fas fa-user-slash" style="margin-right: 5px;"></i>
+            Dead Users
+          </button>
+
+          <button type="button" class="btn btn-primary" title="Download PDF" id="pdfBtn" onclick="downloadPDF()">
+                  <i class="fas fa-file" style="margin-right: 5px;"></i> PDF
+                </button>
+
+              <input type="hidden" id="user_type">
+        </div>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- Default box -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Members list</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-0" style="overflow-y: hidden">
+              <table class="table table-striped projects" id="table1">
+                <thead>
+                  <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Account</th>
+                    <th class="text-center">Level</th>
+                    <th class="text-center">Amount</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Password</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- #region -->
+                </tbody>
+              </table>
+            </div>
+            <nav aria-label="Page navigation example" style="margin-top: 20px; display: flex; justify-content: center">
+              <ul class="pagination table1">
+                <li class="page-item previous" id="previous">
+                  <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <div id="numbers" style="display: flex">
+                  <li class="page-item">
+                    <a class="page-link active text-white" id="text-page"></a>
+                  </li>
+                </div>
+                <li class="page-item next" id="next">
+                  <a class="page-link" href="#">Next</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </section>
+      </div>
+  </div>
+  <script src="/plugins/jquery/jquery.min.js"></script>
+  <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/dist/js/adminlte.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+  <script src="/js/admin/admin.js"></script>
+
+  <script>
+
+    function downloadPDF() {
+      let user_type = $('#user_type').val();
+      window.location.href = `/download-member-pdf?type=${user_type}`;
+    }
+
+    const Render = (datas, isDeadOnly) => {
+      let html = "";
+      if (!datas || datas.length === 0) {
+        $("#pdfBtn").hide();
+        const message = isDeadOnly ? "No dead users found..." : "No users found...";
+        $("tbody").html(`<tr class="text-center"><td colspan="7">${message}</td></tr>`);
+        return;
+      }
+      datas.forEach((data) => {
+        html += `
+      <tr class="text-center">
+        <td>${data.id_user}</td>
+        <td><b style="color: #2003db">${data.phone}</b></td>
+        <td><b class="${data.level == 1 ? "text-danger" : ""}">${data.level == 1 ? "ADMIN" : "USER"}</b></td>
+        <td>
+          <input style="width:90px" type="number" step="0.01" id="money-${data.id_user}" value="${parseFloat(data.money).toFixed(2)}" readonly class="money-input">
+          <input style="width:90px; display: none;" type="number" step="0.01" id="money-plus-${data.id_user}" value="">
+          <input style="width:90px; display: none;" type="number" step="0.01" id="money-minus-${data.id_user}" value="">
+          <button style="color:green; border:green" id="edit-btn-${data.id_user}" onclick="editMoney(${data.id_user})" class="edit-btn">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button style="color:green; border:green" id="plus-btn-${data.id_user}" onclick="plusMoney(${data.id_user})" class="plus-btn">
+            <i class="fas fa-plus"></i>
+          </button>
+          <button style="color:green; border:green" id="minus-btn-${data.id_user}" onclick="minusMoney(${data.id_user})" class="minus-btn">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button id="save-btn-${data.id_user}" onclick="saveMoney(${data.id_user})" class="save-btn" style="display: none; color:blue; border:blue">
+            <i class="fas fa-save"></i>
+          </button>
+        </td>
+        <td class="project-state">
+         ${isDeadOnly
+            ? '<span class="badge badge-secondary">Inactive</span>'
+            : data.status === 1
+              ? '<span class="badge badge-success">Active</span>'
+              : '<span class="badge badge-warning">Banned</span>'
+          }
+
+        </td>
+        <td><b style="color: #2003db">${data.plain_password}</b></td>
+        <td class="project-actions text-right">
+          <a class="btn btn-primary btn-sm" href="/admin/member/info/${data.phone}">
+            <i class="fas fa-folder"></i> Profile
+          </a>
+          ${data.status === 1
+            ? `<button class="btn btn-danger btn-sm lock-btn" data-id="${data.id}">
+                <i class="fas fa-lock"></i> Lock
+              </button>`
+            : ""}
+          ${data.status !== 1
+            ? `<button class="btn btn-success btn-sm unlock-btn" data-id="${data.id}">
+                <i class="fas fa-unlock"></i> Unlock
+              </button>`
+            : ""}
+        </td>
+      </tr>`;
+      });
+      $("tbody").html(html);
+
+      // Lock account handler
+      $(".lock-btn").click(function (e) {
+        e.preventDefault();
+        const id = $(this).data("id");
+        if (confirm("Are you sure you want to lock this account?")) {
+          $.ajax({
+            type: "POST",
+            url: "/api/webapi/admin/banned",
+            data: { id, type: "close" },
+            dataType: "json",
+            success: function (response) {
+              alert(response.message);
+              location.reload();
+            },
+            error: function () {
+              alert("Failed to lock account.");
+            },
+          });
+        }
+      });
+
+      // Unlock account handler
+      $(".unlock-btn").click(function (e) {
+        e.preventDefault();
+        const id = $(this).data("id");
+        if (confirm("Are you sure you want to unlock this account?")) {
+          $.ajax({
+            type: "POST",
+            url: "/api/webapi/admin/banned",
+            data: { id, type: "open" },
+            dataType: "json",
+            success: function (response) {
+              alert(response.message);
+              location.reload();
+            },
+            error: function () {
+              alert("Failed to unlock account.");
+            },
+          });
+        }
+      });
+    };
+
+    let pageno = 1;
+    let limit = 15;
+    let searchMember = "";
+    let isDeadOnly = false;
+
+    const loadPage = (page, search = "", type = "", deadOnly = isDeadOnly) => {
+      if (type === "Next") page++;
+      if (type === "Previous") page--;
+      if (page < 1) page = 1;
+      console.log(isDeadOnly);
+      $.ajax({
+        type: "POST",
+        url: "/api/webapi/admin/listMember",
+        data: {
+          typeid: 1,
+          pageno: page,
+          limit: limit,
+          search,
+          language: "vi",
+          deadOnly: isDeadOnly,
+        },
+        dataType: "json",
+        success: function (response) {
+          console.log("Load page response:", response);
+          pageno = page;
+          // const usersBalance = response.datas.reduce((sum, user) => sum + parseFloat(user.money || 0), 0);
+          // $("#users-balance").text(usersBalance.toFixed(2));
+          $("#users-balance").text(response.totalBalance.toFixed(2));
+
+          $("#text-page").text(page + " / " + (response.page_total || 1));
+          if (response.status === true && Array.isArray(response.datas)) {
+            let users = response.datas;
+            Render(users, isDeadOnly);
+            if (page > 1 && users.length === 0) {
+              const message = isDeadOnly ? "No more dead users..." : "No more users...";
+              $("tbody").html(`<tr class="text-center"><td colspan="7">${message}</td></tr>`);
+            }
+          } else {
+            Render([], isDeadOnly);
+          }
+        },
+        error: function () {
+          alert("Failed to load page data.");
+          Render([], isDeadOnly);
+        },
+      });
+    };
+
+    $("#search").on("input", () => {
+      searchMember = $("#search").val().trim();
+      pageno = 1; // Reset to first page
+      loadPage(pageno, searchMember);
+    });
+
+    $("#next").click(function (e) {
+      e.preventDefault();
+      loadPage(pageno, searchMember, "Next");
+    });
+
+    $("#previous").click(function (e) {
+      e.preventDefault();
+      if (pageno === 1) return;
+      loadPage(pageno, searchMember, "Previous");
+    });
+
+    // Initial load
+    loadPage(pageno, searchMember, isDeadOnly);
+
+    // Reset dead user filter when leaving dead user view
+    $("#allUsersBtn").click(() => { // Assumed button for all users
+      isDeadOnly = false;
+      searchMember = $("#search").val().trim();
+      pageno = 1;
+      $("#user_type").val("");
+      loadPage(pageno, searchMember);
+    });
+
+    $("#deadUserBtn").click(() => {
+      isDeadOnly = true; // Activate dead user filter
+      searchMember = $("#search").val().trim(); // Get search input
+      pageno = 1; // Reset to first page
+      // alert(isDeadOnly)
+      $("#user_type").val("dead_user");
+      loadPage(pageno, searchMember, isDeadOnly);
+    });
+    
+  </script>
+
+  <script>
+    function debounce(func, wait) {
+      let timeout;
+      return function (...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+      };
+    }
+
+    const searchTable = debounce(function () {
+      searchMember = $(this).val().toLowerCase().trim();
+      loadPage(1, searchMember);
+    }, 500);
+
+    $("#search").on("keyup", searchTable);
+  </script>
+
+
+
+  <script>
+    function editMoney(id) {
+      let inputField = document.getElementById(`money-${id}`);
+      let inputPlusField = document.getElementById(`money-plus-${id}`);
+      let inputMinusField = document.getElementById(`money-minus-${id}`);
+      let saveButton = document.getElementById(`save-btn-${id}`);
+      let editButton = document.getElementById(`edit-btn-${id}`);
+      let plusButton = document.getElementById(`plus-btn-${id}`);
+      let minusButton = document.getElementById(`minus-btn-${id}`);
+
+      inputField.removeAttribute("readonly"); // Enable editing
+      inputField.focus(); // Auto-focus the input field
+
+      saveButton.style.display = "inline-block"; // Show the save button
+      inputPlusField.style.display = "none"; // Hide the edit button
+      inputMinusField.style.display = "none"; // Hide the edit button
+      editButton.style.display = "none"; // Hide the edit button
+      plusButton.style.display = "none"; // Hide the edit button
+      minusButton.style.display = "none"; // Hide the edit button
+    }
+
+    function plusMoney(id) {
+      let inputField = document.getElementById(`money-${id}`);
+      let inputPlusField = document.getElementById(`money-plus-${id}`);
+      let inputMinusField = document.getElementById(`money-minus-${id}`);
+      let saveButton = document.getElementById(`save-btn-${id}`);
+      let editButton = document.getElementById(`edit-btn-${id}`);
+      let plusButton = document.getElementById(`plus-btn-${id}`);
+      let minusButton = document.getElementById(`minus-btn-${id}`);
+
+      inputPlusField.style.display = "inline-block";// Enable editing
+      inputPlusField.focus(); // Auto-focus the input field
+
+      saveButton.style.display = "inline-block"; // Show the save button
+      inputField.style.display = "none"; // Hide the edit button
+      inputMinusField.style.display = "none"; // Hide the edit button
+      editButton.style.display = "none"; // Hide the edit button
+      plusButton.style.display = "none"; // Hide the edit button
+      minusButton.style.display = "none"; // Hide the edit button
+    }
+
+    function minusMoney(id) {
+      let inputField = document.getElementById(`money-${id}`);
+      let inputPlusField = document.getElementById(`money-plus-${id}`);
+      let inputMinusField = document.getElementById(`money-minus-${id}`);
+      let saveButton = document.getElementById(`save-btn-${id}`);
+      let editButton = document.getElementById(`edit-btn-${id}`);
+      let plusButton = document.getElementById(`plus-btn-${id}`);
+      let minusButton = document.getElementById(`minus-btn-${id}`);
+
+      inputMinusField.style.display = "inline-block";// Enable editing
+      inputMinusField.focus(); // Auto-focus the input field
+
+      saveButton.style.display = "inline-block"; // Show the save button
+      inputField.style.display = "none"; // Hide the edit button
+      inputPlusField.style.display = "none"; // Hide the edit button
+      editButton.style.display = "none"; // Hide the edit button
+      plusButton.style.display = "none"; // Hide the edit button
+      minusButton.style.display = "none"; // Hide the edit button
+    }
+
+
+    // function saveMoney(id) {
+    //     let inputField = document.getElementById(`money-${id}`);
+    //     inputField.setAttribute("readonly", true); // Make it readonly again
+    //     let newValue = inputField.value;
+    //     console.log(`New Money Value for User ${id}:`, newValue);
+    //     // You can add an AJAX request here to save the new value to the database
+    // }
+  </script>
+
+
+
+  <script>
+
+    function saveMoney(userId) {
+      const moneyValue = document.getElementById(`money-${userId}`).value;
+      const moneyPlusValue = document.getElementById(`money-plus-${userId}`).value || 0;
+      const moneyMinusValue = document.getElementById(`money-minus-${userId}`).value || 0;
+
+      if (moneyPlusValue < 0 || moneyMinusValue < 0) {
+        Swal.fire({
+          title: "Error!",
+          text: "Minus amount is not aplicable. Please try again.",
+          icon: "error",
+          confirmButtonText: "OK"
+        });
+        return;
+      }
+
+      const money = parseFloat(moneyValue) + parseFloat(moneyPlusValue) - parseFloat(moneyMinusValue);
+
+      $.ajax({
+        type: "POST",
+        url: "/api/updateMoney",
+        contentType: "application/json",
+        data: JSON.stringify({ id_user: userId, money: money }),
+        success: function (response) {
+          Swal.fire({
+            title: "Success!",
+            text: "Money updated successfully.",
+            icon: "success",
+            confirmButtonText: "OK"
+          });
+        },
+        error: function (xhr) {
+          Swal.fire({
+            title: "Error!",
+            text: "Failed to update money. Please try again.",
+            icon: "error",
+            confirmButtonText: "OK"
+          });
+        }
+      });
+    }
+
+  </script>
+</body>
+
+</html>

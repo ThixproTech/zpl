@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation Bonus</title>
+    <link rel="icon" type="image/svg+xml+ico"
+      href="/images/sp-logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color:#000;
+        }
+        
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            background-color: #374992;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            background:#374992
+        }
+        
+        .back-button {
+            margin-right: 20px;
+            font-size: 20px;
+        }
+        
+        .title {
+            font-size: 20px;
+            font-weight: 500;
+            color: #fff;
+        }
+        
+        .banner {
+            min-height: 4.26667rem;
+    width: 100%;
+    background-image: url(/assets/png/invitation_bg-643b61e5.png), linear-gradient(94deg, #f99937 2.72%, #ff6922 43.54%, #ff8039 98.54%);
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover; /* Corrected to cover */
+    padding: .36rem .26667rem;
+    color: #fff;
+        }
+        
+        .banner-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .banner h2 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+        
+        .banner p {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+        
+        .activity-date {
+            font-size: 14px;
+            margin-top: 15px;
+        }
+        
+        .date-range {
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 5px;
+        }
+        
+        .banner-decoration {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: 120px;
+            height: 120px;
+            z-index: 1;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            padding: 20px;
+            justify-content: space-around;
+            background-color: #192760;
+        }
+        
+        .nav-button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 45%;
+        }
+        
+        .nav-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .rules-icon {
+            background-color: rgba(64, 156, 255, 0.2);
+            color: #409cff;
+        }
+        
+        .record-icon {
+            background-color: rgba(59, 230, 154, 0.2);
+            color: #3be69a;
+        }
+        
+        .nav-label {
+            color: #fff;
+            font-size: 14px;
+        }
+        
+        .bonus-section {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            background:#374992
+        }
+        
+        .bonus-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .bonus-tag {
+            display: flex;
+            align-items: center;
+        }
+        
+        .bonus-label {
+            background-color: #2ecc71;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+        
+        .bonus-circle {
+            background-color: white;
+            color: #2ecc71;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
+            font-size: 12px;
+        }
+        
+        .check-icon {
+            background-color: white;
+            color: #2ecc71;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+        
+        .bonus-amount {
+            color: #ff7e5f;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .bonus-details {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .detail-value {
+            color: #333;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #374992;
+            margin: 15px 0;
+        }
+        
+        .progress-section {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 15px 15px;
+        }
+        
+        .progress-box {
+            width: 48%;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .progress-value {
+            font-size: 20px;
+            color: #ff7e5f;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .progress-label {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .action-button {
+            display: block;
+            width: 90%;
+            margin: 15px auto;
+            background-color: #ccd1db;
+            color: #000;
+            border: none;
+            border-radius: 25px;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .received-button {
+            background-color: #ccd1db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="back-button">←</div>
+            <div class="title">Invitation bonus</div>
+        </div>
+        
+        <!-- Banner -->
+        <div class="banner">
+            <div class="banner-content">
+                <h2>Invite friends and deposit</h2>
+                <p>Both parties can receive rewards</p>
+                <p>Invite friends to register and recharge to receive rewards</p>
+                <div class="activity-date">activity date</div>
+                <div class="date-range">2000-01-01 - 2099-01-01</div>
+            </div>
+            <div class="banner-decoration">
+                <!-- This would be the gift box image -->
+                <!-- Simplified for this code -->
+                🎁
+            </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div class="nav-buttons">
+            <div class="nav-button">
+                <div class="nav-icon rules-icon">📄</div>
+                <div class="nav-label">Invitation reward rules</div>
+            </div>
+            <div class="nav-button">
+                <div class="nav-icon record-icon">📝</div>
+                <div class="nav-label">Invitation record</div>
+            </div>
+        </div>
+        
+        <!-- Bonus Section 1 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">1</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹55.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">1</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">1 / 1</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">1 / 1</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+        <!-- number 2 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">2</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹155.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">3</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">3 / 3</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">3 / 3</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+
+        <!-- number 3 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">3</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹555.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">10</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">5 / 10</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">3 / 10</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+        <!-- invite 4 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">4</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹1,555.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">30</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">5 / 30</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">3 / 30</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+        
+        <!-- invite 5 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">5</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹2,555.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">50</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">5 / 50</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">3 / 50</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+        <!-- invite 6 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">6</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹3,355.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">70</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">5 / 70</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">5 / 70</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+        <!-- invite 7 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">7</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹5,355.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">70</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">5 / 70</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">5 / 70</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+        
+        <!-- invite 8 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">8</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹10,955.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">200</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">15 / 20</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">5 / 220</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+        
+       <!-- part 9 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">9</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹25,555.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">500</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">15 / 20</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">5 / 220</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+        
+       <!-- paert 10 -->
+        <div class="bonus-section">
+            <div class="bonus-header">
+                <div class="bonus-tag">
+                    <div class="bonus-label">
+                        Bonus
+                        <div class="bonus-circle">10</div>
+                    </div>
+                    <div class="check-icon">✓</div>
+                </div>
+                <div class="bonus-amount">₹48,555.00</div>
+            </div>
+            
+            <div class="bonus-details">
+                <div class="detail-row">
+                    <div class="detail-label">Number of invitees</div>
+                    <div class="detail-value">1000</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">Recharge per people</div>
+                    <div class="detail-value">₹500.00</div>
+                </div>
+            </div>
+            
+            <div class="divider"></div>
+            
+            <div class="progress-section">
+                <div class="progress-box">
+                    <div class="progress-value">150 / 1000</div>
+                    <div class="progress-label">Number of invitees</div>
+                </div>
+                <div class="progress-box">
+                    <div class="progress-value">50 / 1000</div>
+                    <div class="progress-label">Deposit number</div>
+                </div>
+            </div>
+            
+            <button class="action-button received-button">Received</button>
+        </div>
+        
+       
+    </div>
+</body>
+</html>

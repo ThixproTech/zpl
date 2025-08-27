@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html translate="no" data-dpr="1" style="font-size: 39px;">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="noindex,nofollow">
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <title>Majestic Pride</title>
+    <link rel="stylesheet" href="./index_files/index-96409872.css">
+    <link href="/css/promotion/app.css" rel="stylesheet" />
+    <link href="/css/promotion/chunk-0_1.css" rel="stylesheet" />
+    <link href="/css/promotion/chunk-0_2.css" rel="stylesheet" />
+    <link href="/css/promotion/chunk-0_3.css" rel="stylesheet" />
+    <link href="/css/promotion/chunk-0_4.css" rel="stylesheet" />
+    <link href="/css/promotion/chunk-0_5.css" rel="stylesheet" />
+    <link href="/css/promotion/chunk-0_6.css" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml+ico" href="/images/sp-logo.png">
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            background-color: #090909;
+            padding: 0;
+            margin: 0;
+        }
+
+        .details-button {
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .details-arrow {
+            display: none;
+            cursor: pointer;
+            color: #2aaaf3;
+        }
+
+        .details-show .details-arrow {
+            transform: rotate(180deg);
+        }
+
+        .bdshow {
+            background-color: #2b3270 !important;
+            border: none !important;
+            padding: 15px;
+            margin-top: 8px;
+            border-radius: 0 !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 2s ease-in-out, padding 5s ease-in-out;
+        }
+
+        .bdshow .c-row {
+            font-weight: 400;
+        }
+
+        .bdshow div[data-v-0ff6946a=""] {
+            margin-top: 6px;
+        }
+
+        .bdshow.open {
+            max-height: 1000px;
+            padding: 15px;
+            transition: max-height 2s ease-in-out, padding 5s ease-in-out;
+        }
+
+        .c-row-between {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .ipt {
+            flex: 1;
+            width: 100%;
+            height: 1.06667rem;
+            line-height: 1.06667rem;
+            outline: none;
+            border: none;
+            border-radius: .2rem;
+            background: #2B3270;
+            font-size: .37333rem;
+            color: #fff;
+          
+        }
+        .ipt:focus{
+            border: none!important;
+        }
+
+        .ipt::placeholder {
+            color: #fff;
+        }
+
+        .mian .promotion .ipt[data-v-0ff6946a] {
+            height: 1.06667rem;
+            line-height: 1.06667rem;
+            outline: none;
+            border: none;
+            border-radius: .2rem;
+            background: #2B3270;
+            font-size: .37333rem;
+            color: #fff;
+            width: 4.2rem;
+            
+        }
+    
+        .select-wrapper {
+            position: relative;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        .select-wrapper select {
+            width: 100%;
+            height: 1.06667rem;
+            line-height: 1.06667rem;
+            outline: none;
+            border: none;
+            border-radius: .2rem;
+            background: #2B3270;
+            font-size: .37333rem;
+            color: #fff;
+        }
+
+        .select-wrapper::after {
+        }
+
+        .select-wrapper:hover select {
+            border-color: #999;
+        }
+
+       
+
+        .select-wrapper select option {
+            background-color: #fff;
+            color: #333;
+            font-size: .37333rem;
+        }
+
+       
+
+        /* .p-r-10{
+            margin-left: 10px;
+            width: 200px;
+        } */
+
+
+        .mian .promotion .table .hd[data-v-0ff6946a] {
+    background: #2b3270 !important;
+    
+}
+
+
+
+/* level box css */
+.rechargeh__container-content__item[data-v-a8993d41] {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    gap: .21333rem;
+    padding: .32rem .13333rem;
+    border-radius: .13333rem;
+    background-color: #323a7c;
+    margin-bottom: 10px;
+}
+
+.rechargeh__container-content__item-header[data-v-a8993d41] {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    gap: .13333rem;
+    padding-bottom: .13333rem;
+}
+
+.rechargeh__container-content__item-body[data-v-a8993d41] {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    gap: .16333rem;
+    font-size: .35rem;
+    color: #2aaaf3;
+}
+
+
+.rechargeh__container-content__item-header span[data-v-a8993d41]:first-of-type {
+    margin-left: .13333rem;
+    letter-spacing: .01333rem;
+    color: #FFFFFF;
+    font-size: .45333rem;
+}
+
+.rechargeh__container-content__item-header span[data-v-a8993d41] {
+    min-width: 2rem;
+    height: .66667rem;
+    font-size: .37333rem;
+    text-align: center;
+    line-height: .73333rem;
+    color: #888;
+}
+.rechargeh__container-content__item-header span[data-v-a8993d41] {
+    min-width: 2rem;
+    height: .66667rem;
+    font-size: .37333rem;
+    text-align: center;
+    line-height: .73333rem;
+    color: #888;
+}
+.rechargeh__container-content__item-body>div[data-v-a8993d41] {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    justify-content: space-between;
+}
+.rechargeh__container-content__item-body>div img[data-v-a8993d41] {
+    width: .4rem;
+}
+.rechargeh__container-content__item-body>div:first-of-type span[data-v-a8993d41]:last-of-type {
+    color: #ff7f22;
+}
+
+
+    </style>
+</head>
+
+<body style="font-size: 12px;">
+    <div id="app">
+        <div data-v-7c8bbbf4="" class="mian">
+            <div data-v-106b99c8="" data-v-7c8bbbf4="" class="navbar">
+                <div data-v-106b99c8="" class="navbar-left" onclick="location.href='/home'">
+                    <div data-v-a9660e98="" data-v-106b99c8="" class="c-row c-row-middle-center">
+                        <i class="fa-light fa-angle-left fa-fade fa-xl center" style="color: #FFF"></i>
+                    </div>
+                </div>
+                <div data-v-106b99c8="" class="navbar-title"> My Team </div>
+                <div data-v-106b99c8="" class="navbar-right" onclick="location.href='/promotion/bonusrecord'">
+                    <div data-v-7c8bbbf4="" data-v-106b99c8="" class="c-row">
+                        <i class="fa-duotone fa-calendar-lines fa-fade fa-lg"
+                            style="--fa-primary-color: #fff; --fa-secondary-color: #fff;"></i>
+                    </div>
+                </div>
+            </div>
+            <div data-v-0ff6946a="" class="promotion">
+                <!-- <div data-v-0ff6946a="" class="tab">
+                    <ul data-v-0ff6946a="" class="c-row c-row-between">
+                        <li data-v-7c8bbbf4="" onclick="location.href='/promotion'">Data</li>
+                        <li data-v-7c8bbbf4="" onclick="location.href='/promotion/myTeam'" class="action block-click">My
+                            Team</li>
+                        <li data-v-7c8bbbf4="" onclick="location.href='/promotion/promotionDes'">History</li>
+                        <li data-v-7c8bbbf4="" onclick="location.href='/promotion/tutorial'">Tutorial</li>
+                    </ul>
+                </div> -->
+                <div data-v-0ff6946a="" class="box">
+                    
+            
+<style>
+    .TeamReport__C-head-fixed[data-v-fc8649f4] {
+    position: fixed;
+    top: 1.22667rem;
+    width: 100%;
+    left: 50%;
+    z-index: 99;
+    -webkit-transform: translateX(-50%);
+    transform: translate(-50%);
+    max-width: 10rem;
+    background: #22275B;
+    padding: .26667rem .32rem;
+}
+
+    .searchbar-container[data-v-22bae975] {
+    position: relative;
+    }
+
+    .searchbar-container__searchbar[data-v-22bae975] {
+    width: 100%;
+    padding: .26667rem;
+    height: 1.06667rem;
+    line-height: 1.06667rem;
+    outline: none;
+    border: none;
+    border-radius: .2rem;
+    background: #2B3270;
+    font-size: .37333rem;
+    color: #fff;
+}
+
+.searchbar-container .searchIcon[data-v-22bae975] {
+    position: absolute;
+    right: .13333rem;
+    top: 12%;
+    width: 1.6rem;
+    height: auto;
+}
+
+.searchbar-container .clearIcon[data-v-22bae975] {
+    width: .6rem;
+    height: auto;
+    position: absolute;
+    right: .4rem;
+    top: 20%;
+}
+
+.van-icon {
+    position: relative;
+    display: inline-block;
+    font: .18667rem / 1 vant-icon;
+    font: normal normal normal .18667rem / 1 var(--van-icon-font-family, "vant-icon");
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.TeamReport__C-head-line2>div+div[data-v-fc8649f4] {
+    margin-left: .26667rem;
+}
+
+.TeamReport__C-head-line2>div[data-v-fc8649f4] {
+    border-radius: .13333rem;
+    line-height: 1.06667rem;
+    width: calc(100% - .13333rem);
+    padding: 0 .26667rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    background-color: #2b3270;
+}
+
+
+    
+    .TeamReport__C-body .header-container[data-v-fc8649f4] {
+    min-height: 2.66667rem;
+    background: -webkit-linear-gradient(296.76deg, #374992 5.33%, #4675D2 93.42%);
+    background: linear-gradient(153.24deg, #374992 5.33%, #4675D2 93.42%);
+    color: #fff;
+    font-size: .32rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    padding: .53333rem 0;
+    margin-bottom: .4rem;
+    border-radius: .26667rem;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.TeamReport__C-body .header-container>div[data-v-fc8649f4] {
+    width: 50%;
+    text-align: center;
+}
+.TeamReport__C-body .header-container>div+div[data-v-fc8649f4] {
+    position: relative;
+    margin-bottom: .13333rem;
+}
+
+.TeamReport__C-body .header-container .num[data-v-fc8649f4] {
+    height: .56rem;
+    font-size: .48rem;
+    font-weight: 700;
+    margin-bottom: .4rem;
+}
+
+
+</style>    
+
+                    
+
+                    <div data-v-fc8649f4="" class="TeamReport__C-head-fixed">
+                        <div data-v-22bae975="" data-v-fc8649f4="" class="searchbar-container">
+                            <input data-v-22bae975="" type="text" auto-complete="new-password" autocomplete="off" class="searchbar-container__searchbar iptuid" placeholder="Search subordinate UID" maxlength="30">
+                            <img data-v-22bae975="" class="searchIcon" src="https://tirangaapk.com/assets/png/searchIcon1-3466583c.png">
+                            <img data-v-22bae975="" class="clearIcon" src="/assets/png/clear-85410d7e.png" style="display: none;">
+                        </div>
+                        
+                        
+                        <!-- <div data-v-0ff6946a="" class="c-row-between p-l-15 p-r-15 m-t-5">
+                            <input data-v-0ff6946a="" type="text" maxlength="5" placeholder="UID"
+                                oninput="value=value.replace(/\D/g,'')" class="ipt iptuid">
+                        </div> -->
+                
+                        <div data-v-0ff6946a="" class=" c-row c-row-between m-t-5">
+                        
+                        <div data-v-0ff6946a="" class="select-wrapper">
+                            <select id="levelSelect" class="c-tc">
+                                <option value="">All Levels</option>
+                                <option value="1">Level 1</option>
+                                <option value="2">Level 2</option>
+                                <option value="3">Level 3</option>
+                                <option value="4">Level 4</option>
+                                <option value="5">Level 5</option>
+                                <option value="6">Level 6</option>
+                            </select>
+                        </div>
+
+                        <div data-v-0ff6946a="" class="">
+                            <input data-v-0ff6946a="" type="date" class="ipt iptdate">
+                        </div>
+
+                        <!-- <div data-v-0ff6946a="" class="btn c-tc">Search</div> -->
+                    </div>
+                    </div>
+
+                    <div data-v-c343a2ef="" class="m-r-15 m-l-15 m-t-75">
+                        <div id="van-list"></div>
+                    </div>
+                    
+                    <div data-v-0ff6946a="" class="table">
+                         <div data-v-0ff6946a="" class="list">
+                            <div data-v-0ff6946a="" role="feed" class="van-list">
+                                <div data-v-a9660e98="" class="p-t-5 p-b-5">
+                                    <div data-v-a9660e98="" class="van-empty">
+                                        <div class="van-empty__image">
+                                            <img src="/images/empty-image-default.png" />
+                                        </div>
+                                        <div class="van-list__finished-text">No More Available</div>
+                                        <div class="van-list__placeholder"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!---->
+                    <head>
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/all.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-thin.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-solid.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-regular.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.5.1/css/sharp-light.css">
+    <link rel="stylesheet" href="./index_files/index-96409872.css">
+    <link rel="stylesheet" href="../index_files/index-96409872.css">
+    <link rel="stylesheet" href="../assets/css/index-3cf8aaa6.css"> 
+</head>
+<style>
+    .block-click {
+        pointer-events: none;  
+    }
+
+    .tabbar__container-item[data-v-76c247f8]:nth-of-type(3) svg {
+    position: absolute;
+    bottom: 0.8rem !important;
+    width: 0.86667rem !important;
+    height: 0.86667rem !important;
+    z-index: 3;
+}
+</style>
+
+  <div data-v-76c247f8="" class="tabbar__container"
+    style="--7688837a: &#39;Roboto&#39;, &#39;Inter&#39;, sans-serif;">
+    <div data-v-76c247f8="" class="tabbar__container-item" onclick="window.location='/home'">
+      <svg data-v-76c247f8="" xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56"
+        fill="none" class="">
+        <g clip-path="url(#clip0_226_251)">
+          <path fill="#789DD4" d="m7.664 14.856 1.112 1.662zm13.5-9.03-1.112-1.663zm6.672 0 1.112-1.663zm13.5 9.03-1.112 1.662zM6.552 13.193A8 8 0 0 0 3 19.843h4a4 4 0 0 1 1.776-3.325zm13.5-9.03-13.5 9.03 2.224 3.325 13.5-9.03zm8.896 0a8 8 0 0 0-8.896 0l2.224 3.325a4 4 0 0 1 4.448 0zm13.5 9.03-13.5-9.03-2.224 3.325 13.5 9.03zM46 19.843a8 8 0 0 0-3.552-6.65l-2.224 3.325A4 4 0 0 1 42 19.843zm0 21.185V19.843h-4v21.185zm-4 4a4 4 0 0 0 4-4h-4zm-14.474 0H42v-4H27.526zm-4-13.837v9.837h4V31.19zm-6.263 0h6.263v-4h-6.263zm0 9.837V31.19h-4v9.837zM7 45.028h6.263v-4H7zm-4-4a4 4 0 0 0 4 4v-4zm0-21.185v21.185h4V19.843zm29.507 1.286v1.03h4v-1.03zm-4.98 0h4.98v-4h-4.98zm0 1.03v-1.03h-4v1.03zm4.98 0h-4.98v4h4.98zm-8.98 0a4 4 0 0 0 4 4v-4zm4-5.03a4 4 0 0 0-4 4h4zm4.98 5.03v4a4 4 0 0 0 4-4zM13.263 41.029v4a4 4 0 0 0 4-4zm4-13.837a4 4 0 0 0-4 4h4zm19.244-6.062a4 4 0 0 0-4-4v4zm-8.98 10.061a4 4 0 0 0-4-4v4zm0 9.838h-4a4 4 0 0 0 4 4z" mask="url(#a)"></path>
+        </g>
+        <defs>
+          <lineargradient id="paint0_linear_226_251" x1="2.604" y1="52.0931" x2="2.604" y2="4.55225"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#374992"></stop>
+            <stop offset="1" stop-color="#4675d2"></stop>
+          </lineargradient>
+          <lineargradient id="paint0_linear_226_233" x1="6.5116" y1="52.7442" x2="6.5116" y2="3.90698"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#61a9ff"></stop>
+            <stop offset="1" stop-color="#59b0ea"></stop>
+          </lineargradient>
+          <clippath id="clip0_226_251">
+            <rect width="56" height="56" fill="white"></rect>
+          </clippath>
+        </defs>
+      </svg>
+      <span data-v-76c247f8="" onclick="window.location='/home'">Home</span>
+    </div>
+    <div data-v-76c247f8="" class="tabbar__container-item" onclick="window.location='/activity'">
+      <svg data-v-76c247f8="" xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56"
+        fill="none" class="">
+        <g clip-path="url(#clip0_226_254)">
+          <path stroke="#789DD4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M38 30H10a6 6 0 0 0 0 12h28a6 6 0 0 0 0-12M36 22a8 8 0 1 0 0-16 8 8 0 0 0 0 16M5.414 15.414a2 2 0 0 1 0-2.828l6.172-6.172a2 2 0 0 1 2.828 0l6.172 6.172a2 2 0 0 1 0 2.828l-6.172 6.172a2 2 0 0 1-2.828 0z"></path>
+        </g>
+        <defs>
+          <lineargradient id="paint0_linear_226_254" x1="2.60074" y1="52.7442" x2="2.60074" y2="3.90503"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#374992"></stop>
+            <stop offset="1" stop-color="#4675d2"></stop>
+          </lineargradient>
+          <lineargradient id="paint0_linear_226_233" x1="6.5116" y1="52.7442" x2="6.5116" y2="3.90698"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#61a9ff"></stop>
+            <stop offset="1" stop-color="#59b0ea"></stop>
+          </lineargradient>
+          <clippath id="clip0_226_254">
+            <rect width="56" height="56" fill="white"></rect>
+          </clippath>
+        </defs>
+      </svg>
+      <span data-v-76c247f8="" onclick="window.location='/activity'">Activity</span>
+    </div>
+    
+    <div data-v-76c247f8="" class="tabbar__container-item" onclick="window.location='/promotion'">
+      <div data-v-c4b9aaee="" class="promotionBg"></div>
+      <svg data-v-c4b9aaee="" xmlns="http://www.w3.org/2000/svg" width="57" height="49" fill="none" viewBox="0 0 57 49" class="">
+        <path fill="#fff" fill-rule="evenodd" d="M8.939 1.501A4 4 0 0 1 12.062 0h32.155a4 4 0 0 1 3.124 1.501l7.738 9.673c.427.533.749 1.12.968 1.735H.233a5.99 
+        5.99 0 0 1 .967-1.735zM0 16.091h56.28a5.985 5.985 0 0 1-1.277 2.673l-23.79 28.549a4 4 0 0 1-6.146 0l-23.79-28.55A5.984 5.984 0 0 1 0 16.092m20.556 
+        5.936 7.195 10.102a.5.5 0 0 0 .816-.002l7.118-10.093a2.44 2.44 0 0 1 4.435 1.406v.2h-.223c-.326 0-.782.248-1.304.93-.506.663-6.466 8.724-9.651 
+        13.035a.975.975 0 0 1-1.563.007L17.32 24.26s-.394-.62-1.06-.62h-.14v-.195a2.445 2.445 0 0 1 4.436-1.418" clip-rule="evenodd">
+        </path>
+      </svg>
+      <span data-v-76c247f8="" onclick="window.location='/promotion'">Promotion</span>
+    </div>
+    <div data-v-76c247f8="" class="tabbar__container-item" onclick="window.location='/wallet'">
+      <svg data-v-c4b9aaee="" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 46 44" class="wallet"><path stroke="#789DD4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.982 11.969 31.785 4l4.612 7.989z" clip-rule="evenodd"></path><path stroke="#789DD4" stroke-linejoin="round" stroke-width="2" d="M4 14a2 2 0 0 1 2-2h36a2 2 0 0 1 2 2v28a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"></path><path stroke="#789DD4" stroke-linejoin="round" stroke-width="2" d="M35.25 33H44V23h-8.75c-2.9 0-5.25 2.239-5.25 5s2.35 5 5.25 5Z"></path><path stroke="#789DD4" stroke-linecap="round" stroke-width="2" d="M44 16.5v24"></path></svg>
+      <span data-v-76c247f8="" onclick="window.location='/wallet'">Wallet</span>
+    </div>
+    <div data-v-76c247f8="" class="tabbar__container-item" onclick="window.location='/mian'">
+      <svg data-v-c4b9aaee="" xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="none" viewBox="0 0 46 44" class=""><path stroke="#789DD4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M24 22a9 9 0 1 0 0-18 9 9 0 0 0 0 18"></path><path stroke="#789DD4" stroke-width="2" d="M7 35a9 9 0 0 1 9-9h16a9 9 0 1 1 0 18H16a9 9 0 0 1-9-9Z"></path></svg>
+      <span data-v-76c247f8="" onclick="window.location='/mian'">Account</span>
+    </div>
+  </div>
+</div>
+<script>
+    let url = window.location.pathname;
+    let check = document.querySelector(`.van-tabbar-item[data-url='${url}']`);
+    document.querySelector('#nav_checkUrl').setAttribute('data-url', url);
+    if (check) check.classList.add('block-click');
+    let pathname = document.querySelector('#nav_checkUrl').getAttribute('data-url');
+    let select = 0;
+    switch (pathname) {
+        case '/home':
+            select = 0;
+            break;
+        case '/checkIn':
+            select = 1;
+            break;
+        case '/promotion':
+            select = 2;
+            break;
+        case '/wallet':
+            select = 3;
+            break;
+        case '/mian':
+            select = 4;
+            break;
+        default:
+            break;
+    }
+
+    let arr = [
+        { id: 1, src: '/images/home.png' },
+        { id: 2, src: '/images/checkIn.png' },
+        { id: 3, src: '/images/invite.webp' },
+        { id: 4, src: '/images/wallet2.png' },
+        { id: 5, src: '/images/me2.png' },
+    ];
+</script>                </div>
+            </div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script src="/js/client.js"></script>
+            <script>
+                // $(document).on('click', '.details-button, .details-arrow', function () {
+                //     var item = $(this).closest('.item');
+                //     var bdshow = item.find('.bdshow');
+                //     var detailsButton = item.find('.details-button');
+                //     var detailsArrow = item.find('.details-arrow');
+                //     bdshow.toggleClass('open').toggle();
+                //     detailsButton.toggle();
+                //     detailsArrow.toggle();
+                //     $('.bdshow.open').not(bdshow).hide().removeClass('open');
+                //     $('.details-button').not(detailsButton).show();
+                //     $('.details-arrow').not(detailsArrow).hide();
+                // });
+
+                function alertMess(text, sic) {
+                    $('body').append(
+                        `
+                        <div data-v-1dcba851="" class="msg">
+                            <div data-v-1dcba851="" class="msg-content v-enter-active v-enter-to" style=""> ${text} </div>
+                        </div>
+                        `
+                    );
+                    setTimeout(() => {
+                        $('.msg .msg-content').removeClass('v-enter-active v-enter-to');
+                        $('.msg .msg-content').addClass('v-leave-active v-leave-to');
+                        setTimeout(() => {
+                            $('.msg').remove();
+                        }, 100);
+                        sic.removeClass('block-click');
+                    }, 1000);
+                }
+
+                function formateT(params) {
+                    let result = (params < 10) ? "0" + params : params;
+                    return result;
+                }
+
+                function timerJoin(params = '', addHours = 0) {
+                    let date = '';
+                    if (params) {
+                        date = new Date(Number(params));
+                    } else {
+                        date = new Date();
+                    }
+
+                    date.setHours(date.getHours() + addHours);
+
+                    let years = formateT(date.getFullYear());
+                    let months = formateT(date.getMonth() + 1);
+                    let days = formateT(date.getDate());
+
+                    let hours = date.getHours() % 12;
+                    hours = hours === 0 ? 12 : hours;
+                    let ampm = date.getHours() < 12 ? "AM" : "PM";
+
+                    let minutes = formateT(date.getMinutes());
+                    let seconds = formateT(date.getSeconds());
+
+                    return days + '-' + months + '-' + years;
+                }
+
+                $('.nav .van-tabbar-item:eq(0) img').attr('src', '/images/home1.png');
+                $('.nav .van-tabbar-item:eq(0) .name').removeClass('action');
+                $('.nav .van-tabbar-item:eq(2) .name').addClass('action');
+                
+                
+                function MemRender(datas, mydate, depositAmount, betAmount, depositNum, betNum, firstRecharge, firstRechargeAmount) {
+                    let html = '';
+                    html +=`<div data-v-fc8649f4="" class="TeamReport__C-body">
+                            <div data-v-fc8649f4="" class="header-container">
+                                <div data-v-fc8649f4="" style="border-right: 1px solid black;">
+                                    <div data-v-fc8649f4="" id="deposit-num" class="num">${depositNum}</div>
+                                    <div data-v-fc8649f4="">Deposit number</div>
+                                </div>
+                                
+                                <div data-v-fc8649f4="">
+                                    <div data-v-fc8649f4="" id="deposit-amount" class="num">${depositAmount}</div>
+                                    <div data-v-fc8649f4="">Deposit amount</div>
+                                </div>
+                                <div data-v-fc8649f4="" style="border-right: 1px solid black;">
+                                    <div data-v-fc8649f4="" id="bet-num" class="num">${betNum}</div>
+                                    <div data-v-fc8649f4="">Number of bettors</div>
+                                </div>
+                                <div data-v-fc8649f4="">
+                                    <div data-v-fc8649f4="" id="bet-amount" class="num">${betAmount}</div>
+                                    <div data-v-fc8649f4="">Total bet</div>
+                                </div>
+                                <div data-v-fc8649f4="" style="border-right: 1px solid black;">
+                                    <div data-v-fc8649f4="" class="num">${firstRecharge}</div>
+                                    <div data-v-fc8649f4="">Number of people making first deposit</div>
+                                </div>
+                                <div data-v-fc8649f4="">
+                                    <div data-v-fc8649f4="" class="num">${firstRechargeAmount}</div>
+                                    <div data-v-fc8649f4="">First deposit amount</div>
+                                </div>
+                            </div>
+                        </div>`;
+                    datas.map((data) => {
+                        html += `
+                        <div data-v-a8993d41="" class="rechargeh__container-content__item">
+                <div data-v-a8993d41="" class="rechargeh__container-content__item-header ar-1px-b">
+                    <span data-v-a8993d41="" van-image" data-clipboard-text="${data.id_user}" class="copy_clip" class="btn van-button--default">UID:${data.id_user}<img style="width: 18px; height: 15px;" src="/images/copy.png"></span>
+                    <span data-v-a8993d41="" class=""> </span>
+                </div>
+
+                <div data-v-a8993d41="" class="rechargeh__container-content__item-body">
+                    <div data-v-a8993d41="">
+                        <span data-v-a8993d41="" class="withdraw_title">Level</span>
+                        <span data-v-a8993d41="" class="balance_red">${data.user_level}</span>
+                    </div>
+
+                    <div data-v-a8993d41="">
+                        <span data-v-a8993d41="">Deposit amount</span>
+                        <span data-v-a8993d41=""> ${data.deposit_count}</span>
+                    </div>
+
+                    <div data-v-a8993d41="">
+                        <span data-v-a8993d41="">Bet Amount</span>
+                        <span data-v-a8993d41="">${data.bet_amount}</span>
+                    </div>
+
+                    <div data-v-a8993d41="" >
+                        <span data-v-a8993d41="">Commision</span>
+                        <span data-v-a8993d41="" class="">${data.comm_amount}</span>
+                    </div>
+
+                    <div data-v-a8993d41="" >
+                        <span data-v-a8993d41="">Time</span>
+                        <span data-v-a8993d41="">${mydate}</span>
+                    </div>
+                </div>
+            </div> 
+                        `;
+                    });
+                    $('#van-list').show();
+                    $('#van-list').html(html);
+
+                    $('.copy_clip').click(function (e) {
+                        e.preventDefault();
+                        let text = $(this).text().trim();
+                        navigator.clipboard.writeText(text);
+                        $(this).addClass('block-click');
+                        alertMess('Copy successful', $(this));
+                    });
+                    
+                    $('.showListButton').on('click', function () {
+                        const inviteCount = $(this).data('invite-count');
+                        const listHTML = Array.isArray(inviteCount) ? `<ul>${inviteCount.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No Subordinates';
+                        $('#subordinateList').html(`Subordinate: ${listHTML}`);
+                    });
+
+                }
+                
+                var d = new Date();
+                var today = formateT(d.getFullYear()) + "-" + formateT((d.getMonth()+1)) + "-" + formateT(d.getDate()-1);
+              
+                $.ajax({
+                    type: "POST",
+                    url: "/api/webapi/myTeam",
+                    data: {
+                        todate: today,
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        //console.log('user name is :' + response.f1);
+                        const f1Copy = [...response.f1];
+                        f1Copy.splice(0, 4);
+                        const mydate = response.mydate;
+                        //console.log(response.deposit_num);
+                        const f1Data = response.f1.map(item => {
+                            item.daily_turn_over = item.daily_turn_over || 0;
+                            item.invite_count = Array.isArray(item.invite_count) ? item.invite_count.join(', ') : '';
+                            item.deposit_count = item.deposit_count || 0;
+                            item.deposit_num = item.deposit_num || 0;
+                            item.first_recharge = item.first_recharge || 0;
+                            item.first_recharge_amount = item.first_recharge_amount || 0;
+                            item.bet_amount  = item.bet_amount == null ? 0: parseInt(item.bet_amount,10);
+                            item.comm_amount = item.comm_amount || 0;
+                            item.total_turn_over = item.total_turn_over || 0;
+                            //console.log(item.first_recharge);
+                            return item;
+                        });
+                        const totalTurnover = f1Data.reduce((total, item) => {
+                            const turnover = parseFloat(item.deposit_num);
+                            return isNaN(turnover) ? total : total + turnover;
+                        }, 0);
+
+                        const depositAmount = f1Data.reduce((total, item) => {
+                            const depositamount = parseFloat(item.deposit_count);
+                            return isNaN(depositamount) ? total : total + depositamount;
+                        }, 0);
+                      
+                        const betAmount = f1Data.reduce((total, item) => {
+                            const betamount = parseFloat(item.bet_amount);
+                            return isNaN(betamount) ? total : total + betamount;
+                        }, 0);
+                      
+                        const depositNum = f1Data.reduce((total, item) => {
+                            const depositnum = parseFloat(item.deposit_num);
+                            return isNaN(depositnum) ? total : total + depositnum;
+                        }, 0);
+
+                        const betNum = f1Data.reduce((total, item) => {
+                            const betnum = parseFloat(item.bet_num);
+                            return isNaN(betnum) ? total : total + betnum;
+                        }, 0);
+
+                        const firstRecharge = f1Data.reduce((total, item) => {
+                            const firstrechage = parseFloat(item.first_recharge);
+                            return isNaN(firstrechage) ? total : total + firstrechage;
+                        }, 0);
+                        
+                        const firstRechargeAmount = f1Data.reduce((total, item) => {
+                            const firstrechageamount = parseFloat(item.first_recharge_amount);
+                            return isNaN(firstrechageamount) ? total : total + firstrechageamount;
+                        }, 0);
+                       
+                        const totalMoneySum = response.f1.reduce((total, user) => {
+                            const money = parseFloat(user.total_money) || 0;
+                            return total + money;
+                        }, 0);
+                        
+                       // console.log(count(depositNum));
+                        
+                        
+                        $('#total-mem').text(`Total Recharge: ${totalMoneySum} | Total Turnover: ${parseFloat(totalTurnover)}`);
+                        MemRender(f1Data, mydate, depositAmount, betAmount, depositNum, betNum, firstRecharge, firstRechargeAmount);
+                    }
+                });
+            </script>
+            <script>
+
+                function filterData(uid, level, mydate) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/webapi/myTeam",
+                        data: {
+                        todate: mydate,
+                        },
+                        dataType: "json",
+                        beforeSend: function() {
+                            $('#van-list').hide();
+                        },
+                        success: function (response) {
+                            const mydate = response.mydate;
+                            const allData = response.f1;
+                            const filteredData = allData.filter(item => {
+                                const uidMatch = uid === "" || item.id_user.includes(uid);
+                                const levelMatch = level === "" || parseInt(item.user_level) === parseInt(level);
+                                const mydate = response.mydate;
+                                return uidMatch && levelMatch && mydate;
+                            });
+
+                            const depositAmount = filteredData.reduce((total, item) => {
+                            const depositamount = parseFloat(item.deposit_count);
+                            return isNaN(depositamount) ? total : total + depositamount;
+                            }, 0);
+
+                            const betAmount = filteredData.reduce((total, item) => {
+                            const betamount = parseFloat(item.bet_amount);
+                            return isNaN(betamount) ? total : total + betamount;
+                            }, 0);
+
+                            const depositNum = filteredData.reduce((total, item) => {
+                            const depositnum = parseFloat(item.deposit_num);
+                            return isNaN(depositnum) ? total : total + depositnum;
+                            }, 0);
+
+                            const betNum = filteredData.reduce((total, item) => {
+                            const betnum = parseFloat(item.bet_num);
+                            return isNaN(betnum) ? total : total + betnum;
+                            }, 0);
+
+                            const firstRecharge = filteredData.reduce((total, item) => {
+                            const firstrechage = parseFloat(item.first_recharge);
+                            return isNaN(firstrechage) ? total : total + firstrechage;
+                            }, 0);
+                            
+                            const firstRechargeAmount = filteredData.reduce((total, item) => {
+                            const firstrechageamount = parseFloat(item.first_recharge_amount);
+                            return isNaN(firstrechageamount) ? total : total + firstrechageamount;
+                            }, 0);
+                       
+
+                            if (filteredData.length > 0) {
+                                let html = '';
+                                html +=`<div data-v-fc8649f4="" class="TeamReport__C-body">
+                            <div data-v-fc8649f4="" class="header-container">
+                                <div data-v-fc8649f4="" style="border-right: 1px solid black;">
+                                    <div data-v-fc8649f4="" id="deposit-num" class="num">${depositNum}</div>
+                                    <div data-v-fc8649f4="">Deposit number</div>
+                                </div>
+                                
+                                <div data-v-fc8649f4="">
+                                    <div data-v-fc8649f4="" id="deposit-amount" class="num">${depositAmount}</div>
+                                    <div data-v-fc8649f4="">Deposit amount</div>
+                                </div>
+                                <div data-v-fc8649f4="" style="border-right: 1px solid black;">
+                                    <div data-v-fc8649f4="" id="bet-num" class="num">${betNum}</div>
+                                    <div data-v-fc8649f4="">Number of bettors</div>
+                                </div>
+                                <div data-v-fc8649f4="">
+                                    <div data-v-fc8649f4="" id="bet-amount" class="num">${betAmount}</div>
+                                    <div data-v-fc8649f4="">Total bet</div>
+                                </div>
+                                <div data-v-fc8649f4="" style="border-right: 1px solid black;">
+                                    <div data-v-fc8649f4="" class="num">${firstRecharge}</div>
+                                    <div data-v-fc8649f4="">Number of people making first deposit</div>
+                                </div>
+                                <div data-v-fc8649f4="">
+                                    <div data-v-fc8649f4="" class="num">${firstRechargeAmount}</div>
+                                    <div data-v-fc8649f4="">First deposit amount</div>
+                                </div>
+                            </div>
+                        </div>`;
+                                filteredData.forEach(data => {
+                                    html += `
+                                    <div data-v-a8993d41="" class="rechargeh__container-content__item">
+                <div data-v-a8993d41="" class="rechargeh__container-content__item-header ar-1px-b">
+                    <span data-v-a8993d41="" van-image" data-clipboard-text="${data.id_user}" class="copy_clip" class="btn van-button--default">UID:${data.id_user}<img style="width: 18px; height: 15px;" src="/images/copy.png"></span>
+                    <span data-v-a8993d41="" class=""> </span>
+                </div>
+
+                <div data-v-a8993d41="" class="rechargeh__container-content__item-body">
+                    <div data-v-a8993d41="">
+                        <span data-v-a8993d41="" class="withdraw_title">Level</span>
+                        <span data-v-a8993d41="" class="balance_red">${data.user_level}</span>
+                    </div>
+
+                    <div data-v-a8993d41="">
+                        <span data-v-a8993d41="">Deposit amount</span>
+                        <span data-v-a8993d41="">${data.deposit_count == null ? 0: parseInt(data.deposit_count)}</span>
+                    </div>
+
+                    <div data-v-a8993d41="">
+                        <span data-v-a8993d41="">Bet Amount</span>
+                        <span data-v-a8993d41="">${data.bet_amount == null ? 0: parseInt(data.bet_amount)}</span>
+                    </div>
+
+                    <div data-v-a8993d41="" >
+                        <span data-v-a8993d41="">Commision</span>
+                        <span data-v-a8993d41="" class="">${data.comm_amount == null ? 0: parseInt(data.comm_amount,10)}</span>
+                    </div>
+
+                    <div data-v-a8993d41="" >
+                        <span data-v-a8993d41="">Time</span>
+                        <span data-v-a8993d41="">${mydate}</span>
+                    </div>
+                </div>
+            </div> 
+                    `;
+                                });
+                                $('#van-list').show();
+                                $('#van-list').html(html);
+            
+                                $('.copy_clip').click(function (e) {
+                                    e.preventDefault();
+                                    let text = $(this).text().trim();
+                                    navigator.clipboard.writeText(text);
+                                    $(this).addClass('block-click');
+                                    alertMess('Copy successful', $(this));
+                                });
+                                
+                                $('.showListButton').on('click', function () {
+                                    const inviteCount = $(this).data('invite-count');
+                                    const listHTML = Array.isArray(inviteCount) ? `<ul>${inviteCount.map(item => `<li>${item}</li>`).join('')}</ul>` : 'No Subordinates';
+                                    $('#subordinateList').html(`Subordinate: ${listHTML}`);
+                                });
+                            }
+                        }
+                    });
+                }
+
+                $('.iptuid').on('input', function () {
+                    const partialUID = $(this).val().trim();
+                    const selectedLevel = $('#levelSelect').val();
+                    const partialDate = $('.iptdate').val();
+                    filterData(partialUID, selectedLevel, partialDate);
+                });
+
+                $('.iptdate').on('change', function () {
+                    const partialDate = $(this).val();
+                    const partialUID = $('.iptuid').val().trim();
+                    const selectedLevel = $('#levelSelect').val();
+                    filterData(partialUID, selectedLevel, partialDate);
+                   
+                });
+
+                $('#levelSelect').on('change', function () {
+                    const selectedLevel = $(this).val();
+                    const partialUID = $('.iptuid').val().trim();
+                    const partialDate = $('.iptdate').val();
+                    filterData(partialUID, selectedLevel, partialDate);
+                });
+                filterData("", "");
+
+            </script>
+
+</body>
+
+</html>

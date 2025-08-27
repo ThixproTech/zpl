@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Responsive Table with Filters</title>
+      <link rel="icon" type="image/svg+xml+ico"
+      href="/images/sp-logo.png">
+      <style>
+         body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #9195a3;
+            font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+         }
+         .container {
+            max-width: 400px;
+            height: 100vh;
+            margin: 0 auto;
+            background-color: #2b3270;
+            display: flex;
+            flex-direction: column;
+         }
+         .history-header h2 {
+            margin: 8px 10px;
+            padding: 4px 10px;
+            color: #000;
+            background-color: #ddd;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            font-size: 18px;
+            font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+            gap: 5px;
+            /* text-align: center; */
+         }
+         .tabs {
+            display: flex;
+            margin-bottom: 20px;
+         }
+         .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 0 10px 20px;
+         }
+         .filters input,
+         .filters button {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            outline: none;
+            border: none;
+         }
+         .table-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 0 10px;
+         }
+         table {
+            width: 100%;
+            border-collapse: collapse;
+         }
+         table th,
+         table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            color: #ddd;
+            font-size: 12px;
+         }
+         table th {
+            background: #8e8d8da8;
+            color: #fff;
+            font-size: 14px;
+         }
+         .table-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 0 10px;
+         }
+         .table-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+         }
+
+         .table-container::-webkit-scrollbar-thumb {
+            background-color: #555;
+            border-radius: 4px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+         }
+
+         .table-container::-webkit-scrollbar-thumb:hover {
+            background-color: #007bff;
+         }
+
+         .table-container::-webkit-scrollbar-track {
+            background-color: #2b3270;
+            border-radius: 4px;
+         }
+
+         .table-container::-webkit-scrollbar-track:hover {
+            background-color: #444;
+         }
+
+         .pagination {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+         }
+         .pagination button {
+            padding: 8px 12px;
+            margin: 0 2px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            background: #f9f9f9;
+            font-size: 10px;
+         }
+         .pagination button.active {
+            background: #007bffcb;
+            color: white;
+         }
+         .pagination button:disabled {
+            background: #ddd;
+            cursor: not-allowed;
+         }
+         @media (max-width: 900px) {
+            .container {
+               max-width: 100%;
+            }
+         }
+         @media (max-width: 768px) {
+            table th,
+            table td {
+               font-size: 12px;
+               padding: 5px;
+            }
+            .filters {
+               flex-direction: column;
+               gap: 5px;
+            }
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <div class="history-header">
+            <h2>
+               <span onclick="location.href='/igtechallgames'" style="cursor: pointer">&#8629;</span>
+               Game History
+            </h2>
+         </div>
+         <div class="filters">
+            <input type="text" id="search" placeholder="Search..." oninput="applyFilters()" />
+            <input type="date" id="startDate" onchange="applyFilters()" />
+            <input type="date" id="endDate" onchange="applyFilters()" />
+            <button onclick="resetFilters()">&#8634; Filters</button>
+         </div>
+         <div class="table-container">
+            <table>
+               <thead>
+                  <tr>
+                     <th>ID</th>
+                     <th>Game UID</th>
+                     <th>Game Name</th>
+                     <th>Game Round</th>
+                     <th>Phone</th>
+                     <th>Bet Amount</th>
+                     <th>Win Amount</th>
+                     <th>Currency Code</th>
+                     <th>Provider Name</th>
+                     <th>Date</th>
+                  </tr>
+               </thead>
+               <tbody id="tableBody">
+                  <tr>
+                     <td colspan="9" style="text-align: center">Loading...</td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="pagination" id="pagination"></div>
+      </div>
+      <script>
+         let currentPage = 1;
+         const pageSize = 10;
+
+         async function getGameHistory(search = "", startDate = "", endDate = "") {
+            console.log("Fetching game history with:", { search, startDate, endDate });
+
+            try {
+               const response = await fetch(`/api/webapi/igtechgamehistory?type=user&search=${search}&startDate=${startDate}&endDate=${endDate}&page=${currentPage || 1}&limit=${pageSize || 10}`);
+
+               if (!response.ok) {
+                  throw new Error("Failed to fetch game history");
+               }
+
+               const data = await response.json();
+               return data;
+            } catch (error) {
+               console.error("Error fetching game history:", error);
+               return { data: [], totalPages: 1 };
+            }
+         }
+
+         async function applyFilters() {
+            const searchQuery = document.getElementById("search").value;
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+
+            const { data, totalPages } = await getGameHistory(searchQuery, startDate, endDate);
+            renderTable(data);
+            renderPagination(totalPages);
+         }
+
+         function resetFilters() {
+            document.getElementById("search").value = "";
+            document.getElementById("startDate").value = "";
+            document.getElementById("endDate").value = "";
+            applyFilters();
+         }
+         function renderTable(data) {
+            const tableContainer = document.querySelector(".table-container");
+            const tableBody = document.getElementById("tableBody");
+
+            // Clear the table body
+            tableBody.innerHTML = "";
+
+            if (data.length === 0) {
+               // Clear the table container and show a "No data available" message
+               tableContainer.innerHTML = `<div style="text-align: center; color: #ddd; font-size: 16px; padding: 20px;">No data available</div>`;
+               return;
+            }
+
+            // Restore the table in case it was removed previously
+            if (!tableContainer.querySelector("table")) {
+               tableContainer.innerHTML = `
+         <table>
+            <thead>
+               <tr>
+                  <th>ID</th>
+                  <th>Game UID</th>
+                  <th>Game Name</th>
+                  <th>Game Round</th>
+                  <th>Phone</th>
+                  <th>Bet Amount</th>
+                  <th>Win Amount</th>
+                  <th>Currency Code</th>
+                  <th>Provider Name</th>
+                  <th>Date</th>
+               </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+         </table>
+      `;
+            }
+
+            // Populate the table with d  ata
+            const restoredTableBody = document.getElementById("tableBody");
+            data.forEach(item => {
+               const istDate = new Date(item.created_at).toLocaleString("en-IN", {
+                  timeZone: "Asia/Kolkata",
+                  year: "numeric",
+                  month: "2-digit",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: true,
+               });
+
+               const row = `<tr>
+         <td>${item?.id}</td>
+         <td>${item?.game_uid}</td>
+         <td>${item?.game_name}</td>
+         <td>${item?.game_round}</td>
+         <td>${item?.phone}</td>
+         <td>${item?.betAmount}</td>
+         <td>${item?.winAmount}</td>
+         <td>${item?.currency_code}</td>
+         <td>${item?.provider}</td>
+         <td>${istDate}</td>
+      </tr>`;
+               restoredTableBody.innerHTML += row;
+            });
+         }
+
+         function renderPagination(totalPages) {
+            const pagination = document.getElementById("pagination");
+            pagination.innerHTML = "";
+
+            // Previous Button
+            const prevButton = document.createElement("button");
+            prevButton.textContent = "Previous";
+            prevButton.disabled = currentPage === 1;
+            prevButton.onclick = () => {
+               if (currentPage > 1) {
+                  currentPage--;
+                  applyFilters();
+               }
+            };
+            pagination.appendChild(prevButton);
+
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, currentPage + 2);
+
+            for (let i = startPage; i <= endPage; i++) {
+               const pageButton = document.createElement("button");
+               pageButton.textContent = i;
+               pageButton.classList.toggle("active", i === currentPage);
+               pageButton.onclick = () => {
+                  currentPage = i;
+                  applyFilters();
+               };
+               pagination.appendChild(pageButton);
+            }
+
+            // Next Button
+            const nextButton = document.createElement("button");
+            nextButton.textContent = "Next";
+            nextButton.disabled = currentPage === totalPages;
+            nextButton.onclick = () => {
+               if (currentPage < totalPages) {
+                  currentPage++;
+                  applyFilters();
+               }
+            };
+            pagination.appendChild(nextButton);
+         }
+
+         // Function to create a page button
+         function createPageButton(page) {
+            const button = document.createElement("button");
+            button.textContent = page;
+            button.classList.toggle("active", page === currentPage);
+            button.onclick = () => {
+               currentPage = page;
+               applyFilters();
+            };
+            document.getElementById("pagination").appendChild(button);
+         }
+
+         // Function to create an ellipsis
+         function createEllipsis() {
+            const span = document.createElement("span");
+            span.textContent = "...";
+            span.style.margin = "0 5px";
+            document.getElementById("pagination").appendChild(span);
+         }
+
+         document.addEventListener("DOMContentLoaded", () => {
+            applyFilters();
+            renderPagination(2);
+         });
+      </script>
+   </body>
+</html>
